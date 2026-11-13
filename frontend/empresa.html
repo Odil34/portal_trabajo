@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puente Laboral - Módulo empresarial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 sidebar sidebar-empresa p-3">
+            <a class="text-white fw-bold fs-5 text-decoration-none" href="index.html"><i class="bi bi-briefcase-fill"></i> Puente Laboral</a>
+            <p class="small text-white-50 mb-4">Módulo empresarial</p>
+            <div class="nav flex-column nav-pills">
+                <button class="nav-link text-start active" data-bs-toggle="pill" data-bs-target="#panel" type="button"><i class="bi bi-grid"></i> Panel</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#datos" type="button"><i class="bi bi-building"></i> Datos de la empresa</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#publicar" type="button"><i class="bi bi-plus-square"></i> Publicar oferta</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#ofertas" type="button"><i class="bi bi-briefcase"></i> Mis ofertas</button>
+                <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#postulaciones" type="button"><i class="bi bi-people"></i> Postulaciones</button>
+                <a class="nav-link mt-3 cerrar-sesion" href="index.html"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+            </div>
+        </nav>
+
+        <main class="col-md-9 col-lg-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold text-azul mb-0">Nexo Digital</h3>
+                <span><i class="bi bi-person-circle"></i> Ricardo Méndez</span>
+            </div>
+
+            <div class="tab-content">
+
+                <div class="tab-pane fade show active" id="panel">
+                    <div class="row g-3 mb-4">
+                        <div class="col-6 col-lg-3">
+                            <div class="card p-3 d-flex flex-row align-items-center gap-3">
+                                <div class="icono bg-primary text-white"><i class="bi bi-briefcase"></i></div>
+                                <div><h4 class="fw-bold mb-0">8</h4><small class="text-muted">Ofertas activas</small></div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="card p-3 d-flex flex-row align-items-center gap-3">
+                                <div class="icono bg-success text-white"><i class="bi bi-person-plus"></i></div>
+                                <div><h4 class="fw-bold mb-0">34</h4><small class="text-muted">Postulaciones nuevas</small></div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="card p-3 d-flex flex-row align-items-center gap-3">
+                                <div class="icono bg-warning text-white"><i class="bi bi-calendar-check"></i></div>
+                                <div><h4 class="fw-bold mb-0">5</h4><small class="text-muted">Entrevistas</small></div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <div class="card p-3 d-flex flex-row align-items-center gap-3">
+                                <div class="icono bg-danger text-white"><i class="bi bi-eye"></i></div>
+                                <div><h4 class="fw-bold mb-0">2,140</h4><small class="text-muted">Visitas</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card p-3">
+                        <h5 class="text-azul">Postulaciones recientes</h5>
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Candidato</th>
+                                    <th>Oferta</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ana García</td>
+                                    <td>Desarrollador Web Full Stack</td>
+                                    <td>Hoy</td>
+                                </tr>
+                                <tr>
+                                    <td>Carlos López</td>
+                                    <td>Analista de Calidad</td>
+                                    <td>Hoy</td>
+                                </tr>
+                                <tr>
+                                    <td>María Hernández</td>
+                                    <td>Desarrollador Web Full Stack</td>
+                                    <td>Ayer</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="datos">
+                    <form class="card p-4" action="empresa.html">
+                        <h5 class="text-azul mb-3">Datos de la empresa</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre de la empresa</label>
+                                <input type="text" class="form-control" value="Nexo Digital" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">NIT</label>
+                                <input type="text" class="form-control" value="0614-120512-101-3" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sector</label>
+                                <select class="form-select">
+                                    <option selected>Tecnología</option>
+                                    <option>Finanzas</option>
+                                    <option>Salud</option>
+                                    <option>Comercio</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sitio web</label>
+                                <input type="url" class="form-control" value="https://www.nexodigital.com">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-control" rows="3">Empresa salvadoreña dedicada al desarrollo de software.</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Correo de contacto</label>
+                                <input type="email" class="form-control" value="talento@nexodigital.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" value="2250-1234">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Dirección</label>
+                                <input type="text" class="form-control" value="Col. Escalón, San Salvador">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Logo</label>
+                                <input type="file" class="form-control" accept=".png,.jpg">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-azul mt-3 align-self-start">Guardar cambios</button>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="publicar">
+                    <form class="card p-4" action="empresa.html">
+                        <h5 class="text-azul mb-3">Publicar nueva oferta</h5>
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label">Título del puesto *</label>
+                                <input type="text" class="form-control" placeholder="Ej. Desarrollador Web" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Ubicación *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>San Salvador</option>
+                                    <option>La Libertad</option>
+                                    <option>Santa Ana</option>
+                                    <option>Remoto</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Sector *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Tecnología</option>
+                                    <option>Finanzas</option>
+                                    <option>Salud</option>
+                                    <option>Educación</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tipo de trabajo *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Tiempo completo</option>
+                                    <option>Medio tiempo</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tipo de contrato *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Indefinido</option>
+                                    <option>Temporal</option>
+                                    <option>Pasantía</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Experiencia *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Sin experiencia</option>
+                                    <option>1 - 2 años</option>
+                                    <option>Más de 3 años</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Salario</label>
+                                <input type="text" class="form-control" placeholder="$800 - $1,000">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Vacantes *</label>
+                                <input type="number" class="form-control" min="1" value="1" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Descripción del puesto *</label>
+                                <textarea class="form-control" rows="2" required></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Responsabilidades *</label>
+                                <textarea class="form-control" rows="4" placeholder="Escribe una por línea" required></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Requisitos *</label>
+                                <textarea class="form-control" rows="4" placeholder="Escribe uno por línea" required></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Beneficios</label>
+                                <textarea class="form-control" rows="4" placeholder="Escribe uno por línea"></textarea>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Persona de contacto *</label>
+                                <input type="text" class="form-control" value="Ricardo Méndez" required>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Correo de contacto *</label>
+                                <input type="email" class="form-control" value="talento@nexodigital.com" required>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" value="2250-1234">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label">Fecha de cierre *</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                        </div>
+                        <p class="small text-muted mt-3 mb-0"><i class="bi bi-info-circle"></i> La oferta quedará en revisión hasta que el administrador la apruebe.</p>
+                        <button type="submit" class="btn btn-verde mt-3 align-self-start">Publicar oferta</button>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="ofertas">
+                    <div class="card p-3">
+                        <h5 class="text-azul">Mis ofertas</h5>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Oferta</th>
+                                        <th>Estado</th>
+                                        <th>Postulaciones</th>
+                                        <th>Cierre</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Desarrollador Backend</td>
+                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
+                                        <td>0</td>
+                                        <td>30/11/2026</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="oferta-detalle.html">Desarrollador Web Full Stack</a></td>
+                                        <td><span class="badge bg-success">Activa</span></td>
+                                        <td>47</td>
+                                        <td>15/11/2026</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Analista de Calidad</td>
+                                        <td><span class="badge bg-success">Activa</span></td>
+                                        <td>28</td>
+                                        <td>08/11/2026</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diseñador Gráfico</td>
+                                        <td><span class="badge bg-secondary">Pausada</span></td>
+                                        <td>22</td>
+                                        <td>01/11/2026</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="postulaciones">
+                    <div class="card p-3">
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                            <h5 class="text-azul mb-0">Postulaciones por oferta</h5>
+                            <select class="form-select w-auto">
+                                <option>Desarrollador Web Full Stack</option>
+                                <option>Analista de Calidad</option>
+                                <option>Diseñador Gráfico</option>
+                            </select>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Candidato</th>
+                                        <th>Experiencia</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><div class="d-flex align-items-center gap-2"><div class="avatar">AG</div> Ana García</div></td>
+                                        <td>3 años</td>
+                                        <td>23/10/2026</td>
+                                        <td><span class="badge bg-info">Nuevo</span></td>
+                                        <td><button class="btn btn-sm btn-azul" data-bs-toggle="modal" data-bs-target="#modalCandidato">Ver perfil</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="d-flex align-items-center gap-2"><div class="avatar">MH</div> María Hernández</div></td>
+                                        <td>1 año</td>
+                                        <td>22/10/2026</td>
+                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
+                                        <td><button class="btn btn-sm btn-azul" data-bs-toggle="modal" data-bs-target="#modalCandidato">Ver perfil</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div class="d-flex align-items-center gap-2"><div class="avatar">CL</div> Carlos López</div></td>
+                                        <td>5 años</td>
+                                        <td>21/10/2026</td>
+                                        <td><span class="badge bg-primary">Entrevista</span></td>
+                                        <td><button class="btn btn-sm btn-azul" data-bs-toggle="modal" data-bs-target="#modalCandidato">Ver perfil</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCandidato" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Perfil del candidato</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="mb-0">Ana García</h5>
+                <p class="text-muted">Desarrolladora Full Stack · San Salvador</p>
+                <p class="mb-1"><i class="bi bi-envelope"></i> ana.garcia@correo.com</p>
+                <p><i class="bi bi-telephone"></i> 7654-3210</p>
+                <h6>Habilidades</h6>
+                <p>
+                    <span class="badge bg-secondary">JavaScript</span>
+                    <span class="badge bg-secondary">Node.js</span>
+                    <span class="badge bg-secondary">MySQL</span>
+                    <span class="badge bg-secondary">Bootstrap</span>
+                </p>
+                <h6>Experiencia</h6>
+                <p class="small">Desarrolladora web en Agencia Creativa (2023 - actualidad).</p>
+                <a href="#"><i class="bi bi-file-earmark-pdf"></i> Descargar CV</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger">Descartar</button>
+                <button type="button" class="btn btn-verde">Programar entrevista</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="js/api.js"></script>
+<script>protegerPagina('empresa');</script>
+</body>
+</html>

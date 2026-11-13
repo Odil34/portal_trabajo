@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puente Laboral - Valoraciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-portal">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-briefcase-fill"></i> Puente Laboral</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="busqueda.html">Buscar empleo</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Publicar empleos</a></li>
+                <li class="nav-item"><a class="nav-link" href="recursos.html">Recursos</a></li>
+                <li class="nav-item"><a class="nav-link active" href="valoraciones.html">Valoraciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Mi perfil</a></li>
+            </ul>
+            <div class="d-flex gap-2">
+                <a href="login.html" class="btn btn-outline-light">Iniciar sesión</a>
+                <a href="registro.html" class="btn btn-verde">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-5">
+    <h2 class="fw-bold text-azul">Valoraciones de empresas</h2>
+    <p class="text-muted">Conoce la opinión de los empleados antes de postularte.</p>
+
+    <form class="row g-2 mb-4" action="valoraciones.html">
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Buscar empresa">
+        </div>
+        <div class="col-md-4">
+            <select class="form-select">
+                <option>Todos los sectores</option>
+                <option>Tecnología</option>
+                <option>Finanzas</option>
+                <option>Salud</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-azul w-100">Buscar</button>
+        </div>
+    </form>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card p-3 mb-3">
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="logo-empresa bg-primary">ND</div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-0">Nexo Digital</h5>
+                        <small class="text-muted">Tecnología · San Salvador</small>
+                    </div>
+                    <div class="text-end">
+                        <span class="estrellas">★★★★★</span> <strong>4.6</strong>
+                        <small class="d-block text-muted">128 opiniones</small>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-azul btn-sm" data-bs-toggle="modal" data-bs-target="#modalOpiniones">Ver opiniones</button>
+                    <a href="busqueda.html" class="btn btn-outline-secondary btn-sm">Ver ofertas</a>
+                </div>
+            </div>
+
+            <div class="card p-3 mb-3">
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="logo-empresa bg-success">FC</div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-0">Finanzas Centrales</h5>
+                        <small class="text-muted">Finanzas · Antiguo Cuscatlán</small>
+                    </div>
+                    <div class="text-end">
+                        <span class="estrellas">★★★★☆</span> <strong>4.2</strong>
+                        <small class="d-block text-muted">96 opiniones</small>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-azul btn-sm" data-bs-toggle="modal" data-bs-target="#modalOpiniones">Ver opiniones</button>
+                    <a href="busqueda.html" class="btn btn-outline-secondary btn-sm">Ver ofertas</a>
+                </div>
+            </div>
+
+            <div class="card p-3 mb-3">
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="logo-empresa bg-danger">VP</div>
+                    <div class="flex-grow-1">
+                        <h5 class="mb-0">Clínica Vida Plena</h5>
+                        <small class="text-muted">Salud · Santa Ana</small>
+                    </div>
+                    <div class="text-end">
+                        <span class="estrellas">★★★★☆</span> <strong>4.1</strong>
+                        <small class="d-block text-muted">74 opiniones</small>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-azul btn-sm" data-bs-toggle="modal" data-bs-target="#modalOpiniones">Ver opiniones</button>
+                    <a href="busqueda.html" class="btn btn-outline-secondary btn-sm">Ver ofertas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card p-4 mb-3">
+                <h5 class="text-azul">¿Trabajaste en alguna empresa?</h5>
+                <p class="text-muted small">Comparte tu experiencia y ayuda a otros a decidir dónde trabajar.</p>
+                <a href="login.html" class="btn btn-verde">Valorar una empresa</a>
+            </div>
+            <div class="card p-4">
+                <h5 class="text-azul">Comentarios recientes</h5>
+                <p class="small mb-2"><strong>Logística Pacífico</strong> <span class="estrellas">★★★★</span><br>"Buen trato y capacitaciones constantes."</p>
+                <p class="small mb-0"><strong>Nexo Digital</strong> <span class="estrellas">★★★★★</span><br>"Horario flexible y buenos proyectos."</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="modalOpiniones" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Opiniones de Nexo Digital</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Empresa salvadoreña de desarrollo de software. Ofrece seguro médico, trabajo híbrido y capacitaciones.</p>
+                <p class="mb-1">Ambiente laboral</p>
+                <div class="progress mb-2"><div class="progress-bar bg-success" style="width: 95%">4.8</div></div>
+                <p class="mb-1">Salario y beneficios</p>
+                <div class="progress mb-2"><div class="progress-bar bg-success" style="width: 85%">4.3</div></div>
+                <p class="mb-1">Crecimiento profesional</p>
+                <div class="progress mb-4"><div class="progress-bar bg-success" style="width: 90%">4.5</div></div>
+
+                <div class="border rounded p-3 mb-2">
+                    <div class="d-flex justify-content-between">
+                        <div><strong>"Un buen lugar para crecer"</strong> <span class="estrellas">★★★★★</span></div>
+                        <a href="login.html" class="small text-danger"><i class="bi bi-flag"></i> Reportar</a>
+                    </div>
+                    <p class="small text-muted mb-0">Pros: capacitaciones y buen ambiente. Contras: semanas de entrega pesadas.</p>
+                </div>
+                <div class="border rounded p-3">
+                    <div class="d-flex justify-content-between">
+                        <div><strong>"Buenas prestaciones"</strong> <span class="estrellas">★★★★☆</span></div>
+                        <a href="login.html" class="small text-danger"><i class="bi bi-flag"></i> Reportar</a>
+                    </div>
+                    <p class="small text-muted mb-0">Pros: seguro médico y trabajo remoto. Contras: pocas oportunidades de ascenso.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="login.html" class="btn btn-verde">Escribir valoración</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="text-white-50 py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <p class="mb-0">© 2026 Puente Laboral</p>
+        <div class="d-flex gap-3">
+            <a href="busqueda.html">Empleos</a>
+            <a href="recursos.html">Recursos</a>
+            <a href="valoraciones.html">Valoraciones</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puente Laboral - Mi perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-portal">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-briefcase-fill"></i> Puente Laboral</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="busqueda.html">Buscar empleo</a></li>
+                <li class="nav-item"><a class="nav-link" href="recursos.html">Recursos</a></li>
+                <li class="nav-item"><a class="nav-link" href="valoraciones.html">Valoraciones</a></li>
+                <li class="nav-item"><a class="nav-link active" href="perfil.html">Mi perfil</a></li>
+            </ul>
+            <div class="dropdown">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle"></i> María Hernández
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="perfil.html">Mi perfil</a></li>
+                    <li><a class="dropdown-item text-danger cerrar-sesion" href="index.html">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <div class="card p-3 text-center mb-3">
+                <div class="avatar mx-auto mb-2" style="width: 80px; height: 80px; font-size: 1.8rem;">MH</div>
+                <h6 class="mb-0">María José Hernández</h6>
+                <small class="text-muted">Desarrolladora Web Junior</small>
+            </div>
+            <div class="card p-2">
+                <div class="nav flex-column nav-pills menu-perfil">
+                    <button class="nav-link text-start active" data-bs-toggle="pill" data-bs-target="#datos" type="button"><i class="bi bi-person"></i> Mi perfil</button>
+                    <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#solicitudes" type="button"><i class="bi bi-send"></i> Solicitudes</button>
+                    <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#alertas" type="button"><i class="bi bi-bell"></i> Alertas</button>
+                    <button class="nav-link text-start" data-bs-toggle="pill" data-bs-target="#valoraciones" type="button"><i class="bi bi-star"></i> Valoraciones</button>
+                </div>
+                <hr>
+                <a href="index.html" class="nav-link text-danger px-3 pb-2 cerrar-sesion"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="tab-content">
+
+                <div class="tab-pane fade show active" id="datos">
+                    <h4 class="fw-bold text-azul mb-3">Hola, María José</h4>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="card p-3">
+                                <small class="text-muted">Visitas al perfil</small>
+                                <h3 class="fw-bold mb-0">1,245</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3">
+                                <small class="text-muted">Solicitudes enviadas</small>
+                                <h3 class="fw-bold mb-0">87</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card p-3">
+                                <small class="text-muted">Entrevistas</small>
+                                <h3 class="fw-bold mb-0">6</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="card p-4" action="perfil.html">
+                        <h5 class="text-azul mb-3">Datos personales</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombres</label>
+                                <input type="text" class="form-control" value="María José" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Apellidos</label>
+                                <input type="text" class="form-control" value="Hernández López" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" value="maria.hernandez@correo.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" value="7123-4567">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Resumen profesional</label>
+                                <textarea class="form-control" rows="3">Estudiante de Ingeniería en Sistemas con conocimientos en HTML, CSS, Bootstrap y JavaScript.</textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Currículum (PDF o DOCX)</label>
+                                <p class="small mb-1"><i class="bi bi-file-earmark-pdf text-danger"></i> CV_MariaHernandez.pdf</p>
+                                <input type="file" class="form-control" accept=".pdf,.docx">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-verde mt-3 align-self-start">Guardar cambios</button>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="solicitudes">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="fw-bold text-azul mb-0">Mis solicitudes</h4>
+                        <a href="busqueda.html" class="btn btn-verde btn-sm">Buscar más empleos</a>
+                    </div>
+                    <div class="card p-3">
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Puesto</th>
+                                        <th>Empresa</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href="oferta-detalle.html">Desarrollador Web Full Stack</a></td>
+                                        <td>Nexo Digital</td>
+                                        <td>22/10/2026</td>
+                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="oferta-detalle.html">Desarrollador Frontend</a></td>
+                                        <td>EduSmart Academy</td>
+                                        <td>18/10/2026</td>
+                                        <td><span class="badge bg-primary">Entrevista</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="oferta-detalle.html">Desarrollador Backend Java</a></td>
+                                        <td>Finanzas Centrales</td>
+                                        <td>15/10/2026</td>
+                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="oferta-detalle.html">Desarrollador de E-commerce</a></td>
+                                        <td>Retail Plus</td>
+                                        <td>02/10/2026</td>
+                                        <td><span class="badge bg-secondary">No seleccionado</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="alertas">
+                    <h4 class="fw-bold text-azul mb-3">Alertas de empleo</h4>
+                    <div class="row g-3">
+                        <div class="col-md-7">
+                            <div class="card p-3">
+                                <h6>Mis alertas</h6>
+                                <div class="d-flex justify-content-between border-bottom py-2">
+                                    <div>
+                                        <strong>Desarrollador Web</strong>
+                                        <small class="d-block text-muted">San Salvador · Diaria · Correo</small>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom py-2">
+                                    <div>
+                                        <strong>Diseñador UX/UI</strong>
+                                        <small class="d-block text-muted">Remoto · Semanal · Correo y SMS</small>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between py-2">
+                                    <div>
+                                        <strong>Soporte técnico</strong>
+                                        <small class="d-block text-muted">Santa Ana · Diaria · SMS</small>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <form class="card p-3" action="perfil.html">
+                                <h6>Nueva alerta</h6>
+                                <input type="text" class="form-control mb-2" placeholder="Palabra clave o puesto" required>
+                                <select class="form-select mb-2">
+                                    <option>Todo el país</option>
+                                    <option>San Salvador</option>
+                                    <option>Remoto</option>
+                                </select>
+                                <select class="form-select mb-2">
+                                    <option>Diaria</option>
+                                    <option>Semanal</option>
+                                </select>
+                                <div class="mb-2">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="porCorreo" checked>
+                                        <label class="form-check-label" for="porCorreo">Correo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="porSms">
+                                        <label class="form-check-label" for="porSms">SMS</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-verde">Crear alerta</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="valoraciones">
+                    <h4 class="fw-bold text-azul mb-3">Valorar una empresa</h4>
+                    <form class="card p-4 mb-3" action="perfil.html">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Empresa</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Retail Plus</option>
+                                    <option>Logística Pacífico</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Calificación</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>★★★★★ Excelente</option>
+                                    <option>★★★★ Buena</option>
+                                    <option>★★★ Regular</option>
+                                    <option>★★ Mala</option>
+                                    <option>★ Muy mala</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Comentario</label>
+                                <textarea class="form-control" rows="3" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-check my-3">
+                            <input class="form-check-input" type="checkbox" id="anonimo">
+                            <label class="form-check-label" for="anonimo">Publicar como anónimo</label>
+                        </div>
+                        <button type="submit" class="btn btn-verde align-self-start">Enviar valoración</button>
+                    </form>
+                    <div class="card p-3">
+                        <h6>Mis valoraciones</h6>
+                        <p class="mb-2">Logística Pacífico <span class="estrellas">★★★★★</span> <span class="badge bg-warning text-dark">En revisión</span></p>
+                        <p class="mb-0">Retail Plus <span class="estrellas">★★★★</span> <span class="badge bg-success">Publicada</span></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="text-white-50 py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between gap-2">
+        <p class="mb-0">© 2026 Puente Laboral</p>
+        <div class="d-flex gap-3">
+            <a href="busqueda.html">Empleos</a>
+            <a href="recursos.html">Recursos</a>
+            <a href="valoraciones.html">Valoraciones</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="js/api.js"></script>
+<script>protegerPagina('candidato');</script>
+</body>
+</html>

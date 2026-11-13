@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puente Laboral - Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark navbar-portal">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-briefcase-fill"></i> Puente Laboral</a>
+        <a href="login.html" class="btn btn-outline-light btn-sm">Ya tengo cuenta</a>
+    </div>
+</nav>
+
+<main class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-4">
+                <h2 class="fw-bold text-azul text-center">Crear cuenta</h2>
+                <p class="text-muted text-center">Los campos con * son obligatorios</p>
+
+                <ul class="nav nav-pills nav-fill mb-4">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#regCandidato" type="button"><i class="bi bi-person"></i> Busco empleo</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#regEmpresa" type="button"><i class="bi bi-building"></i> Soy empresa</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <form class="tab-pane fade show active" id="regCandidato" method="post" data-registro="candidato">
+                        <div class="mensaje d-none"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombres *</label>
+                                <input type="text" name="nombres" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Apellidos *</label>
+                                <input type="text" name="apellidos" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Correo electrónico *</label>
+                                <input type="email" name="correo" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" name="telefono" class="form-control" placeholder="7000-0000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Área de interés *</label>
+                                <select name="areaInteres" class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Tecnología</option>
+                                    <option>Finanzas</option>
+                                    <option>Salud</option>
+                                    <option>Ventas</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Currículum (PDF)</label>
+                                <input type="file" class="form-control" accept=".pdf">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contraseña *</label>
+                                <input type="password" name="clave" class="form-control" minlength="8" required>
+                                <div class="form-text">Mínimo 8 caracteres.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Confirmar contraseña *</label>
+                                <input type="password" name="confirmarClave" class="form-control" minlength="8" required>
+                            </div>
+                        </div>
+                        <div class="form-check my-3">
+                            <input class="form-check-input" type="checkbox" id="terminos1" required>
+                            <label class="form-check-label" for="terminos1">Acepto los términos y condiciones *</label>
+                        </div>
+                        <button type="submit" class="btn btn-verde w-100">Crear cuenta</button>
+                    </form>
+
+                    <form class="tab-pane fade" id="regEmpresa" method="post" data-registro="empresa">
+                        <div class="mensaje d-none"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre de la empresa *</label>
+                                <input type="text" name="nombre" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">NIT *</label>
+                                <input type="text" name="nit" class="form-control" placeholder="0614-000000-000-0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sector *</label>
+                                <select name="sector" class="form-select" required>
+                                    <option value="">Selecciona...</option>
+                                    <option>Tecnología</option>
+                                    <option>Finanzas</option>
+                                    <option>Salud</option>
+                                    <option>Comercio</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sitio web</label>
+                                <input type="url" name="sitioWeb" class="form-control" placeholder="https://">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Persona de contacto *</label>
+                                <input type="text" name="personaContacto" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Correo de la empresa *</label>
+                                <input type="email" name="correo" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contraseña *</label>
+                                <input type="password" name="clave" class="form-control" minlength="8" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Confirmar contraseña *</label>
+                                <input type="password" name="confirmarClave" class="form-control" minlength="8" required>
+                            </div>
+                        </div>
+                        <div class="form-check my-3">
+                            <input class="form-check-input" type="checkbox" id="terminos2" required>
+                            <label class="form-check-label" for="terminos2">Acepto los términos y condiciones *</label>
+                        </div>
+                        <button type="submit" class="btn btn-azul w-100">Registrar empresa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="js/api.js"></script>
+<script src="js/registro.js"></script>
+</body>
+</html>

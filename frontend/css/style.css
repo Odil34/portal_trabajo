@@ -1,0 +1,143 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6fa;
+}
+
+.navbar-portal {
+    background-color: #1d2b4f;
+}
+
+.text-azul {
+    color: #1d2b4f;
+}
+
+.btn-azul {
+    background-color: #1d2b4f;
+    color: white;
+}
+
+.btn-azul:hover {
+    background-color: #141f3a;
+    color: white;
+}
+
+.btn-verde {
+    background-color: #4f7f74;
+    color: white;
+}
+
+.btn-verde:hover {
+    background-color: #3f675e;
+    color: white;
+}
+
+.hero {
+    background: linear-gradient(135deg, #1d2b4f, #2c4275);
+    color: white;
+    padding: 70px 0;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card-oferta {
+    transition: transform 0.2s;
+}
+
+.card-oferta:hover {
+    transform: translateY(-4px);
+}
+
+.logo-empresa {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e5efec;
+    color: #3f675e;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icono {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.estrellas {
+    color: #f4b400;
+}
+
+.menu-perfil .nav-link {
+    color: #333;
+}
+
+.menu-perfil .nav-link.active {
+    background-color: #e5efec;
+    color: #3f675e;
+}
+
+.sidebar {
+    background-color: #1d2b4f;
+}
+
+.sidebar-empresa {
+    background-color: #3b2a43;
+}
+
+.sidebar .nav-link {
+    color: #cfd6e4;
+}
+
+.sidebar .nav-link:hover {
+    color: white;
+}
+
+.sidebar .nav-link.active {
+    background-color: #4f7f74;
+    color: white;
+}
+
+.sidebar-empresa .nav-link.active {
+    background-color: #6c4f75;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        min-height: 100vh;
+    }
+}
+
+footer {
+    background-color: #141f3a;
+}
+
+footer a {
+    color: #aab3c5;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+}
