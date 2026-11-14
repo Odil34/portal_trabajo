@@ -307,12 +307,11 @@
                     <div class="card p-3">
                         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                             <h5 class="text-azul mb-0">Postulaciones por oferta</h5>
-                            <select class="form-select w-auto">
-                                <option>Desarrollador Web Full Stack</option>
-                                <option>Analista de Calidad</option>
-                                <option>Diseñador Gráfico</option>
+                            <select id="selectOfertasPostulaciones" class="form-select w-auto">
+                                <option value="">Cargando ofertas...</option>
                             </select>
                         </div>
+                        <div id="mensajePostulaciones"></div>
                         <div class="table-responsive">
                             <table class="table align-middle mb-0">
                                 <thead>
@@ -324,27 +323,9 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tablaAplicantes">
                                     <tr>
-                                        <td><div class="d-flex align-items-center gap-2"><div class="avatar">AG</div> Ana García</div></td>
-                                        <td>3 años</td>
-                                        <td>23/10/2026</td>
-                                        <td><span class="badge bg-info">Nuevo</span></td>
-                                        <td><button class="btn btn-sm btn-azul" data-bs-toggle="modal" data-bs-target="#modalCandidato">Ver perfil</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="d-flex align-items-center gap-2"><div class="avatar">MH</div> María Hernández</div></td>
-                                        <td>1 año</td>
-                                        <td>22/10/2026</td>
-                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
-                                        <td><button class="btn btn-sm btn-azul" data-bs-toggle="modal" data-bs-target="#modalCandidato">Ver perfil</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><div class="d-flex align-items-center gap-2"><div class="avatar">CL</div> Carlos López</div></td>
-                                        <td>5 años</td>
-                                        <td>21/10/2026</td>
-                                        <td><span class="badge bg-primary">Entrevista</span></td>
-                                        <td><button class="btn btn-sm btn-azul" data-bs-toggle="modal" data-bs-target="#modalCandidato">Ver perfil</button></td>
+                                        <td colspan="5" class="text-center text-muted py-3">Cargando postulaciones...</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -365,24 +346,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <h5 class="mb-0">Ana García</h5>
-                <p class="text-muted">Desarrolladora Full Stack · San Salvador</p>
-                <p class="mb-1"><i class="bi bi-envelope"></i> ana.garcia@correo.com</p>
-                <p><i class="bi bi-telephone"></i> 7654-3210</p>
-                <h6>Habilidades</h6>
-                <p>
-                    <span class="badge bg-secondary">JavaScript</span>
-                    <span class="badge bg-secondary">Node.js</span>
-                    <span class="badge bg-secondary">MySQL</span>
-                    <span class="badge bg-secondary">Bootstrap</span>
-                </p>
+                <div id="mensajeModalCandidato"></div>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <h5 id="detalleNombre" class="mb-0">Cargando...</h5>
+                        <p id="detalleSubtitulo" class="text-muted mb-0"></p>
+                    </div>
+                    <span id="detalleEstadoBadge"></span>
+                </div>
+                <p class="mb-1"><i class="bi bi-envelope"></i> <span id="detalleCorreo"></span></p>
+                <p class="mb-3"><i class="bi bi-telephone"></i> <span id="detalleTelefono"></span></p>
+
                 <h6>Experiencia</h6>
-                <p class="small">Desarrolladora web en Agencia Creativa (2023 - actualidad).</p>
-                <a href="#"><i class="bi bi-file-earmark-pdf"></i> Descargar CV</a>
+                <p id="detalleExperiencia" class="small mb-2"></p>
+
+                <h6>Resumen profesional</h6>
+                <p id="detalleResumen" class="small mb-2"></p>
+
+                <h6>Carta de presentación</h6>
+                <p id="detalleCarta" class="small text-muted bg-light p-2 rounded mb-3"></p>
+
+                <p id="detalleCv" class="small mb-0"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger">Descartar</button>
-                <button type="button" class="btn btn-verde">Programar entrevista</button>
+                <button type="button" id="btnRechazarPostulacion" class="btn btn-outline-danger">Rechazar</button>
+                <button type="button" id="btnAceptarPostulacion" class="btn btn-verde">Aceptar</button>
             </div>
         </div>
     </div>
