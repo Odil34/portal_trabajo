@@ -30,8 +30,10 @@
         <main class="col-md-9 col-lg-10 p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="fw-bold text-azul mb-0">Panel administrativo</h3>
-                <span><i class="bi bi-person-circle"></i> Administrador</span>
+                <span><i class="bi bi-person-circle"></i> <span id="nombreAdmin">Administrador</span></span>
             </div>
+
+            <div id="mensajeAdmin" class="d-none"></div>
 
             <div class="tab-content">
 
@@ -40,25 +42,25 @@
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-primary text-white"><i class="bi bi-people"></i></div>
-                                <div><h4 class="fw-bold mb-0">48,300</h4><small class="text-muted">Usuarios</small></div>
+                                <div><h4 class="fw-bold mb-0" id="totalUsuarios">0</h4><small class="text-muted">Usuarios</small></div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-success text-white"><i class="bi bi-building"></i></div>
-                                <div><h4 class="fw-bold mb-0">1,250</h4><small class="text-muted">Empresas</small></div>
+                                <div><h4 class="fw-bold mb-0" id="totalEmpresas">0</h4><small class="text-muted">Empresas verificadas</small></div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-warning text-white"><i class="bi bi-briefcase"></i></div>
-                                <div><h4 class="fw-bold mb-0">3,870</h4><small class="text-muted">Vacantes activas</small></div>
+                                <div><h4 class="fw-bold mb-0" id="totalOfertas">0</h4><small class="text-muted">Vacantes activas</small></div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-danger text-white"><i class="bi bi-flag"></i></div>
-                                <div><h4 class="fw-bold mb-0">9</h4><small class="text-muted">Reportes pendientes</small></div>
+                                <div><h4 class="fw-bold mb-0" id="totalModerar">0</h4><small class="text-muted">Por moderar</small></div>
                             </div>
                         </div>
                     </div>
@@ -67,20 +69,16 @@
                             <div class="card p-3 h-100">
                                 <h5 class="text-azul">Pendientes de revisión</h5>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between">Empresas por verificar <span class="badge bg-warning text-dark">6</span></li>
-                                    <li class="list-group-item d-flex justify-content-between">Ofertas por aprobar <span class="badge bg-warning text-dark">24</span></li>
-                                    <li class="list-group-item d-flex justify-content-between">Contenido reportado <span class="badge bg-danger">9</span></li>
+                                    <li class="list-group-item d-flex justify-content-between">Empresas por verificar <span class="badge bg-warning text-dark" id="pendEmpresas">0</span></li>
+                                    <li class="list-group-item d-flex justify-content-between">Ofertas por aprobar <span class="badge bg-warning text-dark" id="pendOfertas">0</span></li>
+                                    <li class="list-group-item d-flex justify-content-between">Valoraciones por moderar <span class="badge bg-danger" id="pendValoraciones">0</span></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="card p-3 h-100">
                                 <h5 class="text-azul">Actividad reciente</h5>
-                                <ul class="list-group list-group-flush small">
-                                    <li class="list-group-item">Nexo Digital publicó una nueva oferta.</li>
-                                    <li class="list-group-item">Se registraron 56 candidatos nuevos.</li>
-                                    <li class="list-group-item">Una oferta fue reportada 3 veces.</li>
-                                </ul>
+                                <ul class="list-group list-group-flush small" id="listaActividad"></ul>
                             </div>
                         </div>
                     </div>
@@ -91,8 +89,11 @@
                         <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                             <h5 class="text-azul mb-0">Gestión de usuarios</h5>
                             <div class="d-flex gap-2">
-                                <input type="text" class="form-control" placeholder="Buscar usuario">
-                                <button class="btn btn-azul text-nowrap">Nuevo usuario</button>
+                                <form class="d-flex gap-2" id="formBuscarUsuario">
+                                    <input type="text" name="buscar" class="form-control" placeholder="Buscar por nombre o correo">
+                                    <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+                                </form>
+                                <button class="btn btn-azul text-nowrap" data-bs-toggle="modal" data-bs-target="#modalAdmin">Nuevo administrador</button>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -102,42 +103,12 @@
                                         <th>Nombre</th>
                                         <th>Correo</th>
                                         <th>Tipo</th>
+                                        <th>Registro</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>María Hernández</td>
-                                        <td>maria.hernandez@correo.com</td>
-                                        <td>Candidato</td>
-                                        <td><span class="badge bg-success">Activo</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-slash-circle"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ricardo Méndez</td>
-                                        <td>talento@nexodigital.com</td>
-                                        <td>Empresa</td>
-                                        <td><span class="badge bg-success">Activo</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-slash-circle"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pedro Zelaya</td>
-                                        <td>pzelaya@correo.com</td>
-                                        <td>Candidato</td>
-                                        <td><span class="badge bg-danger">Suspendido</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-success"><i class="bi bi-check-circle"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="tablaUsuarios"></tbody>
                             </table>
                         </div>
                     </div>
@@ -153,36 +124,13 @@
                                         <th>Empresa</th>
                                         <th>NIT</th>
                                         <th>Sector</th>
+                                        <th>Contacto</th>
+                                        <th>Ofertas</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>AgroVerde</td>
-                                        <td>0614-030321-102-5</td>
-                                        <td>Agroindustria</td>
-                                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-success">Aprobar</button>
-                                            <button class="btn btn-sm btn-outline-danger">Rechazar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nexo Digital</td>
-                                        <td>0614-120512-101-3</td>
-                                        <td>Tecnología</td>
-                                        <td><span class="badge bg-success">Verificada</span></td>
-                                        <td><button class="btn btn-sm btn-outline-danger">Suspender</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Finanzas Centrales</td>
-                                        <td>0614-010199-001-8</td>
-                                        <td>Finanzas</td>
-                                        <td><span class="badge bg-success">Verificada</span></td>
-                                        <td><button class="btn btn-sm btn-outline-danger">Suspender</button></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="tablaEmpresas"></tbody>
                             </table>
                         </div>
                     </div>
@@ -191,6 +139,7 @@
                 <div class="tab-pane fade" id="vacantes">
                     <div class="card p-3">
                         <h5 class="text-azul">Gestión de vacantes</h5>
+                        <p class="text-muted small">Las ofertas que publican las empresas llegan en revisión y solo aparecen en la búsqueda cuando se aprueban.</p>
                         <div class="table-responsive">
                             <table class="table align-middle mb-0">
                                 <thead>
@@ -198,36 +147,12 @@
                                         <th>Vacante</th>
                                         <th>Empresa</th>
                                         <th>Publicada</th>
+                                        <th>Postulaciones</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Desarrollador Backend</td>
-                                        <td>Nexo Digital</td>
-                                        <td>Hoy</td>
-                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
-                                        <td>
-                                            <button class="btn btn-sm btn-success">Aprobar</button>
-                                            <button class="btn btn-sm btn-outline-danger">Rechazar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Desarrollador Web Full Stack</td>
-                                        <td>Nexo Digital</td>
-                                        <td>21/10/2026</td>
-                                        <td><span class="badge bg-success">Activa</span></td>
-                                        <td><a href="oferta-detalle.html" class="btn btn-sm btn-outline-primary">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Trabajo desde casa sin experiencia</td>
-                                        <td>Empleos Fáciles</td>
-                                        <td>20/10/2026</td>
-                                        <td><span class="badge bg-danger">Reportada</span></td>
-                                        <td><button class="btn btn-sm btn-danger">Eliminar</button></td>
-                                    </tr>
-                                </tbody>
+                                <tbody id="tablaOfertas"></tbody>
                             </table>
                         </div>
                     </div>
@@ -235,43 +160,8 @@
 
                 <div class="tab-pane fade" id="moderacion">
                     <h5 class="text-azul">Moderación de contenido</h5>
-                    <p class="text-muted small mb-3">Aquí llegan los comentarios y valoraciones nuevas antes de publicarse, y el contenido que los usuarios reportan con el botón "Reportar".</p>
-                    <div class="card p-3 mb-3">
-                        <div class="d-flex justify-content-between">
-                            <strong>Comentario sobre Nexo Digital</strong>
-                            <span class="badge bg-danger">Lenguaje ofensivo</span>
-                        </div>
-                        <small class="text-muted">Origen: comentarios de la oferta "Desarrollador Web Full Stack" · Autor: Luis Martínez · Reportado por 2 usuarios</small>
-                        <p class="text-muted my-2">"El jefe de área es un ****** y trata mal a todos..."</p>
-                        <div>
-                            <button class="btn btn-sm btn-outline-secondary">Ignorar</button>
-                            <button class="btn btn-sm btn-danger">Ocultar</button>
-                        </div>
-                    </div>
-                    <div class="card p-3 mb-3">
-                        <div class="d-flex justify-content-between">
-                            <strong>Valoración sobre Logística Pacífico</strong>
-                            <span class="badge bg-warning text-dark">Nueva</span>
-                        </div>
-                        <small class="text-muted">Origen: perfil del candidato, sección Valoraciones · Autor: María Hernández</small>
-                        <p class="text-muted my-2">"Buen ambiente de trabajo y capacitaciones constantes."</p>
-                        <div>
-                            <button class="btn btn-sm btn-outline-danger">Rechazar</button>
-                            <button class="btn btn-sm btn-success">Aprobar</button>
-                        </div>
-                    </div>
-                    <div class="card p-3">
-                        <div class="d-flex justify-content-between">
-                            <strong>Oferta "Trabajo desde casa sin experiencia"</strong>
-                            <span class="badge bg-danger">Posible fraude</span>
-                        </div>
-                        <small class="text-muted">Origen: botón "Reportar oferta" del detalle de oferta · Empresa: Empleos Fáciles · Reportada por 3 usuarios</small>
-                        <p class="text-muted my-2">"Gana $3,000 al mes, solo debes pagar $25 de inscripción..."</p>
-                        <div>
-                            <button class="btn btn-sm btn-outline-secondary">Ignorar</button>
-                            <button class="btn btn-sm btn-danger">Eliminar oferta</button>
-                        </div>
-                    </div>
+                    <p class="text-muted small mb-3">Aquí llegan las valoraciones nuevas antes de publicarse y las que los usuarios reportan.</p>
+                    <div id="listaValoraciones"></div>
                 </div>
 
                 <div class="tab-pane fade" id="estadisticas">
@@ -279,25 +169,18 @@
                     <div class="row g-3">
                         <div class="col-lg-6">
                             <div class="card p-3 h-100">
-                                <h6>Vacantes por sector</h6>
-                                <p class="small mb-1">Tecnología (640)</p>
-                                <div class="progress mb-2"><div class="progress-bar" style="width: 100%"></div></div>
-                                <p class="small mb-1">Atención al cliente (520)</p>
-                                <div class="progress mb-2"><div class="progress-bar" style="width: 81%"></div></div>
-                                <p class="small mb-1">Finanzas (410)</p>
-                                <div class="progress mb-2"><div class="progress-bar" style="width: 64%"></div></div>
-                                <p class="small mb-1">Salud (285)</p>
-                                <div class="progress"><div class="progress-bar" style="width: 45%"></div></div>
+                                <h6>Vacantes activas por sector</h6>
+                                <div id="graficaSectores"></div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="card p-3 h-100">
                                 <h6>Resumen del mes</h6>
                                 <table class="table mb-0">
-                                    <tr><td>Nuevos usuarios</td><td class="text-end fw-bold">1,240</td></tr>
-                                    <tr><td>Nuevas empresas</td><td class="text-end fw-bold">38</td></tr>
-                                    <tr><td>Postulaciones</td><td class="text-end fw-bold">26,410</td></tr>
-                                    <tr><td>Contrataciones</td><td class="text-end fw-bold">1,184</td></tr>
+                                    <tr><td>Nuevos candidatos</td><td class="text-end fw-bold" id="mesCandidatos">0</td></tr>
+                                    <tr><td>Nuevas empresas</td><td class="text-end fw-bold" id="mesEmpresas">0</td></tr>
+                                    <tr><td>Postulaciones</td><td class="text-end fw-bold" id="mesPostulaciones">0</td></tr>
+                                    <tr><td>Contrataciones</td><td class="text-end fw-bold" id="mesContrataciones">0</td></tr>
                                 </table>
                             </div>
                         </div>
@@ -306,6 +189,28 @@
 
             </div>
         </main>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdmin" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" id="formNuevoAdmin" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo administrador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mensaje d-none"></div>
+                <label class="form-label">Correo electrónico</label>
+                <input type="email" name="correo" class="form-control mb-3" required>
+                <label class="form-label">Contraseña</label>
+                <input type="password" name="clave" class="form-control" minlength="8" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-azul">Crear administrador</button>
+            </div>
+        </form>
     </div>
 </div>
 

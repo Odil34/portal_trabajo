@@ -52,12 +52,65 @@ async function peticion(ruta, opciones = {}) {
   return datos;
 }
 
+function escaparHtml(texto) {
+  const div = document.createElement('div');
+  div.textContent = texto ?? '';
+  return div.innerHTML;
+}
+
+function formatoFecha(fecha) {
+  return new Date(fecha).toLocaleDateString('es-SV');
+}
+
 function mostrarMensaje(contenedor, mensaje, tipo = 'danger') {
   contenedor.className = `mensaje alert alert-${tipo}`;
   contenedor.textContent = mensaje;
 }
 
+function mostrarUsuarioEnMenu() {
+  const sesion = obtenerSesion();
+
+  const zonaBotones = document.querySelector('.navbar .collapse > .d-flex');
+
+  if (!sesion || !zonaBotones) return;
+
+  const { nombre, rol } = sesion.usuario;
+
+  const panel = paginasPorRol[rol];
+
+  const textoPanel = {
+    candidato: 'Mi perfil',
+    empresa: 'Mi empresa',
+    admin: 'Panel administrativo'
+  };
+
+  document.querySelectorAll('.navbar .nav-link').forEach((enlace) => {
+    if (enlace.textContent.trim() === 'Mi perfil') {
+      enlace.href = panel;
+      enlace.textContent = textoPanel[rol];
+    }
+
+    if (enlace.textContent.trim() === 'Publicar empleos' && rol === 'empresa') {
+      enlace.href = panel;
+    }
+  });
+
+  zonaBotones.innerHTML = `
+    <div class="dropdown">
+      <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <i class="bi bi-person-circle"></i> ${escaparHtml(nombre)}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="${panel}">${textoPanel[rol]}</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger cerrar-sesion" href="index.html">Cerrar sesión</a></li>
+      </ul>
+    </div>`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  mostrarUsuarioEnMenu();
+
   document.querySelectorAll('.cerrar-sesion').forEach((enlace) => {
     enlace.addEventListener('click', (e) => {
       e.preventDefault();

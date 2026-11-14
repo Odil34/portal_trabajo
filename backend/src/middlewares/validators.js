@@ -78,6 +78,36 @@ export const registroEmpresaValidators = [
   claveValidator
 ];
 
+const estadoValidator = (estados) =>
+  body('estado')
+    .isIn(estados)
+    .withMessage(`El estado debe ser: ${estados.join(', ')}`);
+
+export const crearAdminValidators = [
+  correoValidator,
+  claveValidator
+];
+
+export const estadoUsuarioValidators = [
+  idParamValidator('usuarioId'),
+  estadoValidator(['activo', 'suspendido'])
+];
+
+export const estadoEmpresaValidators = [
+  idParamValidator('empresaId'),
+  estadoValidator(['verificada', 'rechazada', 'suspendida'])
+];
+
+export const estadoOfertaValidators = [
+  idParamValidator('ofertaId'),
+  estadoValidator(['activa', 'rechazada'])
+];
+
+export const estadoValoracionValidators = [
+  idParamValidator('valoracionId'),
+  estadoValidator(['publicada', 'oculta'])
+];
+
 export const loginValidators = [
   correoValidator,
 
