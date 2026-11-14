@@ -151,20 +151,21 @@
 
 <div class="modal fade" id="modalAplicar" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <form class="modal-content" action="perfil.html">
+        <form id="formAplicar" class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Aplicar a Desarrollador Web Full Stack</h5>
+                <h5 id="modalAplicarTitulo" class="modal-title">Aplicar a oferta</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <label class="form-label">Currículum</label>
-                <input type="file" class="form-control mb-3" accept=".pdf,.docx" required>
+                <div id="mensajeAplicar"></div>
+                <label class="form-label">Currículum (opcional si ya lo subiste en tu perfil)</label>
+                <input type="file" id="cvPostulacion" class="form-control mb-3" accept=".pdf,.docx">
                 <label class="form-label">Carta de presentación (opcional)</label>
-                <textarea class="form-control" rows="4"></textarea>
+                <textarea id="cartaPresentacion" class="form-control" rows="4" placeholder="Cuéntale a la empresa por qué eres ideal para el puesto..."></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-verde">Enviar postulación</button>
+                <button type="submit" id="btnEnviarPostulacion" class="btn btn-verde">Enviar postulación</button>
             </div>
         </form>
     </div>

@@ -25,8 +25,8 @@
                 <li class="nav-item"><a class="nav-link active" href="perfil.html">Mi perfil</a></li>
             </ul>
             <div class="dropdown">
-                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle"></i> María Hernández
+                <button id="navNombreUsuario" class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle"></i> Candidato
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="perfil.html">Mi perfil</a></li>
@@ -41,9 +41,9 @@
     <div class="row g-4">
         <div class="col-lg-3">
             <div class="card p-3 text-center mb-3">
-                <div class="avatar mx-auto mb-2" style="width: 80px; height: 80px; font-size: 1.8rem;">MH</div>
-                <h6 class="mb-0">María José Hernández</h6>
-                <small class="text-muted">Desarrolladora Web Junior</small>
+                <div id="avatarIniciales" class="avatar mx-auto mb-2" style="width: 80px; height: 80px; font-size: 1.8rem;">--</div>
+                <h6 id="sidebarNombre" class="mb-0">Cargando...</h6>
+                <small id="sidebarTitulo" class="text-muted"></small>
             </div>
             <div class="card p-2">
                 <div class="nav flex-column nav-pills menu-perfil">
@@ -61,55 +61,81 @@
             <div class="tab-content">
 
                 <div class="tab-pane fade show active" id="datos">
-                    <h4 class="fw-bold text-azul mb-3">Hola, María José</h4>
+                    <h4 id="saludoUsuario" class="fw-bold text-azul mb-3">Hola</h4>
                     <div class="row g-3 mb-4">
                         <div class="col-md-4">
                             <div class="card p-3">
                                 <small class="text-muted">Visitas al perfil</small>
-                                <h3 class="fw-bold mb-0">1,245</h3>
+                                <h3 id="statVisitas" class="fw-bold mb-0">0</h3>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card p-3">
                                 <small class="text-muted">Solicitudes enviadas</small>
-                                <h3 class="fw-bold mb-0">87</h3>
+                                <h3 id="statSolicitudes" class="fw-bold mb-0">0</h3>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card p-3">
-                                <small class="text-muted">Entrevistas</small>
-                                <h3 class="fw-bold mb-0">6</h3>
+                                <small class="text-muted">Postulaciones aceptadas</small>
+                                <h3 id="statAceptadas" class="fw-bold mb-0">0</h3>
                             </div>
                         </div>
                     </div>
 
-                    <form class="card p-4" action="perfil.html">
+                    <form id="formPerfil" class="card p-4">
                         <h5 class="text-azul mb-3">Datos personales</h5>
+                        <div id="mensajePerfil"></div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nombres</label>
-                                <input type="text" class="form-control" value="María José" required>
+                                <input type="text" id="nombres" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Apellidos</label>
-                                <input type="text" class="form-control" value="Hernández López" required>
+                                <input type="text" id="apellidos" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Correo electrónico</label>
-                                <input type="email" class="form-control" value="maria.hernandez@correo.com" required>
+                                <input type="email" id="correo" class="form-control" readonly disabled>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" value="7123-4567">
+                                <input type="tel" id="telefono" class="form-control" placeholder="7123-4567">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Título profesional</label>
+                                <input type="text" id="titulo" class="form-control" placeholder="Ej. Desarrolladora Web Junior">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Área de interés</label>
+                                <select id="areaInteres" class="form-select" required>
+                                    <option value="Tecnología">Tecnología</option>
+                                    <option value="Finanzas">Finanzas</option>
+                                    <option value="Comercio">Comercio</option>
+                                    <option value="Ventas">Ventas</option>
+                                    <option value="Administración">Administración</option>
+                                    <option value="Salud">Salud</option>
+                                    <option value="Educación">Educación</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Experiencia laboral</label>
+                                <select id="experiencia" class="form-select">
+                                    <option value="Sin experiencia">Sin experiencia</option>
+                                    <option value="Menos de 1 año">Menos de 1 año</option>
+                                    <option value="1 - 2 años">1 - 2 años</option>
+                                    <option value="Más de 3 años">Más de 3 años</option>
+                                </select>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Resumen profesional</label>
-                                <textarea class="form-control" rows="3">Estudiante de Ingeniería en Sistemas con conocimientos en HTML, CSS, Bootstrap y JavaScript.</textarea>
+                                <textarea id="resumen" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Currículum (PDF o DOCX)</label>
-                                <p class="small mb-1"><i class="bi bi-file-earmark-pdf text-danger"></i> CV_MariaHernandez.pdf</p>
-                                <input type="file" class="form-control" accept=".pdf,.docx">
+                                <p id="cvActualTexto" class="small text-muted mb-1">Sin archivo cargado</p>
+                                <input type="file" id="cvArchivo" class="form-control" accept=".pdf,.docx">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-verde mt-3 align-self-start">Guardar cambios</button>
@@ -132,30 +158,9 @@
                                         <th>Estado</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tablaSolicitudes">
                                     <tr>
-                                        <td><a href="oferta-detalle.html">Desarrollador Web Full Stack</a></td>
-                                        <td>Nexo Digital</td>
-                                        <td>22/10/2026</td>
-                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="oferta-detalle.html">Desarrollador Frontend</a></td>
-                                        <td>EduSmart Academy</td>
-                                        <td>18/10/2026</td>
-                                        <td><span class="badge bg-primary">Entrevista</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="oferta-detalle.html">Desarrollador Backend Java</a></td>
-                                        <td>Finanzas Centrales</td>
-                                        <td>15/10/2026</td>
-                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="oferta-detalle.html">Desarrollador de E-commerce</a></td>
-                                        <td>Retail Plus</td>
-                                        <td>02/10/2026</td>
-                                        <td><span class="badge bg-secondary">No seleccionado</span></td>
+                                        <td colspan="4" class="text-center text-muted">Cargando solicitudes...</td>
                                     </tr>
                                 </tbody>
                             </table>
