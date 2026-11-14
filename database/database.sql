@@ -99,15 +99,15 @@ CREATE TABLE valoraciones (
 
 INSERT INTO roles (rol) VALUES ('admin'), ('candidato'), ('empresa');
 
-INSERT INTO usuarios (rolId, correo, clave, estado) VALUES
-(1, 'admin@puentelaboral.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo'),
-(2, 'maria.hernandez@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo'),
-(2, 'ana.garcia@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo'),
-(2, 'carlos.lopez@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo'),
-(2, 'pzelaya@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'suspendido'),
-(3, 'talento@nexodigital.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo'),
-(3, 'rrhh@finanzascentrales.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo'),
-(3, 'contacto@agroverde.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo');
+INSERT INTO usuarios (rolId, correo, clave, estado, fechaRegistro) VALUES
+(1, 'admin@puentelaboral.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '60 days'),
+(2, 'maria.hernandez@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '25 days'),
+(2, 'ana.garcia@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '15 days'),
+(2, 'carlos.lopez@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '12 days'),
+(2, 'pzelaya@correo.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'suspendido', NOW() - INTERVAL '9 days'),
+(3, 'talento@nexodigital.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '40 days'),
+(3, 'rrhh@finanzascentrales.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '35 days'),
+(3, 'contacto@agroverde.com', '$2b$10$OmF4qdYW6WeJz/puykAK1.uTUY5p0bn.VHeSv7pHIvKtsaMqvVhe2', 'activo', NOW() - INTERVAL '1 days');
 
 INSERT INTO candidatos (usuarioId, nombres, apellidos, telefono, areaInteres, titulo, resumen, experiencia, visitas) VALUES
 (2, 'María José', 'Hernández López', '7123-4567', 'Tecnología', 'Desarrolladora Web Junior', 'Estudiante de Ingeniería en Sistemas con conocimientos en HTML, CSS, Bootstrap y JavaScript.', '1 - 2 años', 1245),
@@ -126,44 +126,44 @@ INSERT INTO ofertas (empresaId, titulo, ubicacion, sector, tipoTrabajo, tipoCont
  E'Desarrollar y mantener aplicaciones web.\nCrear y consumir APIs REST.\nTrabajar en equipo usando metodologías ágiles.',
  E'Estudiante o graduado de Ingeniería en Sistemas.\nConocimientos de HTML, CSS, JavaScript y Bootstrap.\nConocimientos de bases de datos SQL.\n1 a 2 años de experiencia.',
  E'Prestaciones de ley y seguro médico.\nTrabajo híbrido.\nCapacitaciones pagadas.',
- 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', '2026-12-15', 'activa', '2026-11-01'),
+ 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', (NOW() + INTERVAL '30 days')::date, 'activa', NOW() - INTERVAL '12 days'),
 (1, 'Analista de Calidad', 'San Salvador', 'Tecnología', 'Tiempo completo', 'Indefinido', '1 - 2 años', 900, 1100, 1,
  'Buscamos un analista QA para asegurar la calidad de nuestros productos.',
  E'Diseñar y ejecutar casos de prueba.\nReportar y dar seguimiento a errores.',
  E'Conocimientos de pruebas de software.\nManejo de herramientas como Postman.',
  E'Prestaciones de ley.\nHorario flexible.',
- 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', '2026-12-08', 'activa', '2026-11-03'),
+ 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', (NOW() + INTERVAL '20 days')::date, 'activa', NOW() - INTERVAL '10 days'),
 (1, 'Diseñador Gráfico', 'Remoto', 'Tecnología', 'Medio tiempo', 'Temporal', 'Sin experiencia', 500, 700, 1,
  'Diseñador para piezas de redes sociales y sitios web.',
  E'Crear piezas gráficas.\nApoyar en el diseño de interfaces.',
  E'Manejo de Figma e Illustrator.',
  NULL,
- 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', '2026-12-01', 'inactiva', '2026-10-20'),
+ 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', (NOW() + INTERVAL '15 days')::date, 'inactiva', NOW() - INTERVAL '24 days'),
 (1, 'Desarrollador Backend', 'San Salvador', 'Tecnología', 'Tiempo completo', 'Indefinido', 'Más de 3 años', 1500, 2000, 1,
  'Desarrollador backend para nuestros servicios en la nube.',
  E'Desarrollar APIs con Node.js.\nAdministrar bases de datos PostgreSQL.',
  E'Experiencia con Node.js y Express.\nConocimientos de PostgreSQL.',
  E'Prestaciones de ley y seguro médico.',
- 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', '2026-12-30', 'en_revision', NOW()),
+ 'Ricardo Méndez', 'talento@nexodigital.com', '2250-1234', (NOW() + INTERVAL '45 days')::date, 'en_revision', NOW() - INTERVAL '0 days'),
 (2, 'Desarrollador Backend Java', 'Antiguo Cuscatlán', 'Finanzas', 'Tiempo completo', 'Indefinido', '1 - 2 años', 1300, 1700, 2,
  'Desarrollador Java para los sistemas internos del banco.',
  E'Desarrollar servicios con Java y Spring.\nMantener sistemas existentes.',
  E'Conocimientos de Java.\nConocimientos de SQL.',
  E'Prestaciones de ley.\nBono anual.',
- 'Laura Rivas', 'rrhh@finanzascentrales.com', '2260-5000', '2026-12-20', 'activa', '2026-11-05'),
+ 'Laura Rivas', 'rrhh@finanzascentrales.com', '2260-5000', (NOW() + INTERVAL '35 days')::date, 'activa', NOW() - INTERVAL '8 days'),
 (2, 'Analista de Créditos', 'Antiguo Cuscatlán', 'Finanzas', 'Tiempo completo', 'Indefinido', 'Sin experiencia', 800, 1000, 3,
  'Analista para evaluar solicitudes de crédito de clientes.',
  E'Analizar solicitudes de crédito.\nAtender a clientes.',
  E'Estudiante de Administración, Economía o afines.',
  E'Prestaciones de ley.\nSeguro de vida.',
- 'Laura Rivas', 'rrhh@finanzascentrales.com', '2260-5000', '2026-12-10', 'activa', '2026-11-08');
+ 'Laura Rivas', 'rrhh@finanzascentrales.com', '2260-5000', (NOW() + INTERVAL '25 days')::date, 'activa', NOW() - INTERVAL '5 days');
 
 INSERT INTO postulaciones (ofertaId, candidatoId, cartaPresentacion, estado, fechaPostulacion) VALUES
-(1, 2, 'Me interesa formar parte de su equipo de desarrollo.', 'enviada', '2026-11-10'),
-(1, 1, 'Tengo conocimientos en HTML, CSS y JavaScript.', 'en_revision', '2026-11-09'),
-(2, 3, NULL, 'aceptada', '2026-11-06'),
-(5, 1, NULL, 'rechazada', '2026-11-07'),
-(6, 1, NULL, 'enviada', '2026-11-11');
+(1, 2, 'Me interesa formar parte de su equipo de desarrollo.', 'enviada', NOW() - INTERVAL '2 days'),
+(1, 1, 'Tengo conocimientos en HTML, CSS y JavaScript.', 'en_revision', NOW() - INTERVAL '3 days'),
+(2, 3, NULL, 'aceptada', NOW() - INTERVAL '6 days'),
+(5, 1, NULL, 'rechazada', NOW() - INTERVAL '4 days'),
+(6, 1, NULL, 'enviada', NOW() - INTERVAL '1 days');
 
 INSERT INTO valoraciones (empresaId, candidatoId, calificacion, comentario, anonimo, estado) VALUES
 (1, 3, 5, 'Excelente ambiente de trabajo, se aprende mucho y respetan el horario.', FALSE, 'publicada'),
