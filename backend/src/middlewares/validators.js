@@ -119,3 +119,36 @@ export const loginValidators = [
     .isIn(['candidato', 'empresa', 'admin'])
     .withMessage('El rol debe ser candidato, empresa o admin')
 ];
+
+export const crearPostulacionValidators = [
+  body('ofertaId')
+    .isInt({ min: 1 })
+    .withMessage('El ID de la oferta es obligatorio y debe ser numérico'),
+
+  body('cartaPresentacion')
+    .optional()
+    .isString()
+    .withMessage('La carta de presentación debe ser texto')
+];
+
+export const estadoPostulacionValidators = [
+  idParamValidator('id'),
+  estadoValidator(['en_revision', 'aceptada', 'rechazada'])
+];
+
+export const actualizarPerfilValidators = [
+  body('nombres')
+    .trim()
+    .notEmpty()
+    .withMessage('Los nombres son obligatorios'),
+
+  body('apellidos')
+    .trim()
+    .notEmpty()
+    .withMessage('Los apellidos son obligatorios'),
+
+  body('areaInteres')
+    .trim()
+    .notEmpty()
+    .withMessage('El área de interés es obligatoria')
+];
