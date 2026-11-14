@@ -35,7 +35,7 @@ const crearSesion = (fila) => {
     return { token, usuario };
 };
 
-const crearUsuario = async (client, rol, correo, clave) => {
+export const crearUsuario = async (client, rol, correo, clave) => {
     const result = await client.query(`INSERT INTO usuarios (rolId, correo, clave)
         VALUES ((SELECT rolId FROM roles WHERE rol = $1), $2, $3)
         RETURNING usuarioId AS "usuarioId"`, [rol, correo, encriptarClave(clave)]);
