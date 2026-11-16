@@ -59,7 +59,16 @@ function escaparHtml(texto) {
 }
 
 function formatoFecha(fecha) {
-  return new Date(fecha).toLocaleDateString('es-SV');
+  if (!fecha) return 'No especificada';
+
+  const valor = String(fecha);
+  const fechaLocal = /^\d{4}-\d{2}-\d{2}$/.test(valor)
+    ? new Date(`${valor}T00:00:00`)
+    : new Date(valor);
+
+  return Number.isNaN(fechaLocal.getTime())
+    ? 'No especificada'
+    : fechaLocal.toLocaleDateString('es-SV');
 }
 
 function mostrarMensaje(contenedor, mensaje, tipo = 'danger') {
@@ -118,3 +127,125 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+function crearSelectorBuscable(contenedorId, opciones = [], configuracion = {}) {
+  const contenedor = document.getElementById(contenedorId);
+  if (!contenedor) return null;
+
+  const entrada = contenedor.querySelector('.catalogo-entrada');
+  const valorOculto = contenedor.querySelector('input[type="hidden"]');
+  const lista = contenedor.querySelector('.catalogo-opciones');
+  const textoVacio = configuracion.textoVacio || 'No se encontraron opciones';
+  let elementos = ordenarOpciones(opciones);
+
+  function normalizar(texto) {
+    return String(texto || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase('es')
+      .trim();
+  }
+
+  function cerrar() {
+    lista.classList.remove('mostrar');
+    entrada.setAttribute('aria-expanded', 'false');
+  }
+
+  function seleccionar(opcion) {
+    entrada.value = opcion.label;
+    valorOculto.value = opcion.value;
+    cerrar();
+    if (typeof configuracion.alSeleccionar === 'function') {
+      configuracion.alSeleccionar(opcion);
+    }
+  }
+
+  function mostrar() {
+    const busqueda = normalizar(entrada.value);
+    const filtradas = elementos.filter(opcion => normalizar(opcion.label).includes(busqueda));
+    lista.innerHTML = '';
+
+    if (!filtradas.length) {
+      const vacio = document.createElement('div');
+      vacio.className = 'catalogo-sin-resultados';
+      vacio.textContent = textoVacio;
+      lista.appendChild(vacio);
+    } else {
+      filtradas.forEach(opcion => {
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'catalogo-opcion';
+        boton.setAttribute('role', 'option');
+        boton.textContent = opcion.label;
+        boton.addEventListener('click', () => seleccionar(opcion));
+        lista.appendChild(boton);
+      });
+    }
+
+    lista.classList.add('mostrar');
+    entrada.setAttribute('aria-expanded', 'true');
+  }
+
+  entrada.addEventListener('focus', mostrar);
+  entrada.addEventListener('input', () => {
+    valorOculto.value = '';
+    mostrar();
+  });
+  entrada.addEventListener('keydown', evento => {
+    if (evento.key === 'Escape') cerrar();
+    if (evento.key === 'Enter' && lista.classList.contains('mostrar')) {
+      const primeraOpcion = lista.querySelector('.catalogo-opcion');
+      if (primeraOpcion) {
+        evento.preventDefault();
+        primeraOpcion.click();
+      }
+    }
+  });
+
+  document.addEventListener('click', evento => {
+    if (!contenedor.contains(evento.target)) cerrar();
+  });
+
+  const selector = {
+    actualizar(nuevasOpciones, valor = '') {
+      elementos = ordenarOpciones(nuevasOpciones);
+      entrada.disabled = false;
+      entrada.placeholder = 'Escribe para buscar...';
+      selector.limpiar();
+      if (valor) {
+        const encontrado = elementos.find(opcion => normalizar(opcion.value) === normalizar(valor));
+        if (encontrado) seleccionar(encontrado);
+      }
+    },
+    seleccionarValor(valor) {
+      const encontrado = elementos.find(opcion => normalizar(opcion.value) === normalizar(valor));
+      if (encontrado) seleccionar(encontrado);
+    },
+    limpiar() {
+      entrada.value = '';
+      valorOculto.value = '';
+      cerrar();
+    },
+    deshabilitar(mensaje = 'Primero selecciona una opción anterior') {
+      selector.limpiar();
+      entrada.disabled = true;
+      entrada.placeholder = mensaje;
+    },
+    habilitar() {
+      entrada.disabled = false;
+      entrada.placeholder = 'Escribe para buscar...';
+    }
+  };
+
+  if (configuracion.deshabilitado) selector.deshabilitar();
+  return selector;
+}
+
+function ordenarOpciones(opciones) {
+  return [...opciones].sort((a, b) => {
+    if (a.value === '') return -1;
+    if (b.value === '') return 1;
+    return a.label.localeCompare(b.label, 'es', { sensitivity: 'base' });
+  });
+}

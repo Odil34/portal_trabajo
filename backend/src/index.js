@@ -7,6 +7,7 @@ import postulacionesRouter from './routes/postulaciones.js';
 import candidatoRouter from './routes/candidato.js';
 import empresaRouter from './routes/empresa.js';
 import adminRouter from './routes/admin.js';
+import valoracionesRouter from './routes/valoraciones.js';
 
 import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
@@ -25,6 +26,7 @@ app.use('/api/postulaciones', postulacionesRouter);
 app.use('/api/candidato', candidatoRouter);
 app.use('/api/empresa', empresaRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/valoraciones', valoracionesRouter);
 
 app.use(notFound);
 
