@@ -137,3 +137,175 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 });
+const estadosValoracion = {
+  pendiente: '<span class="badge bg-warning text-dark">En revisión</span>',
+  publicada: '<span class="badge bg-success">Publicada</span>',
+  oculta: '<span class="badge bg-secondary">No publicada</span>'
+};
+
+async function cargarEmpresasValorar() {
+  const empresas = await peticion('/valoraciones');
+  const select = document.getElementById('empresaValoracion');
+
+  select.innerHTML = '<option value="">Selecciona...</option>' + empresas
+    .map((e) => `<option value="${e.empresaId}">${escaparHtml(e.nombre)}</option>`)
+    .join('');
+}
+
+async function cargarMisValoraciones() {
+  const valoraciones = await peticion('/valoraciones/mias');
+  const lista = document.getElementById('listaMisValoraciones');
+
+  if (valoraciones.length === 0) {
+    lista.innerHTML = '<p class="text-muted mb-0">Aún no has valorado ninguna empresa.</p>';
+    return;
+  }
+
+  lista.innerHTML = valoraciones.map((v) => `
+    <div class="border-bottom py-2">
+      <strong>${escaparHtml(v.empresa)}</strong>
+      <span class="estrellas">${'★'.repeat(v.calificacion)}${'☆'.repeat(5 - v.calificacion)}</span>
+      ${estadosValoracion[v.estado]}
+      <p class="small text-muted mb-0">${escaparHtml(v.comentario)}${v.anonimo ? ' (anónimo)' : ''}</p>
+    </div>`).join('');
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const mensaje = document.getElementById('mensajeValoracion');
+
+  if (window.location.hash === '#valoraciones') {
+    bootstrap.Tab.getOrCreateInstance(document.querySelector('[data-bs-target="#valoraciones"]')).show();
+  }
+
+  try {
+    await Promise.all([cargarEmpresasValorar(), cargarMisValoraciones()]);
+  } catch (error) {
+    mostrarMensaje(mensaje, error.message);
+  }
+
+  document.getElementById('formValoracion').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const datos = {
+      empresaId: Number(document.getElementById('empresaValoracion').value),
+      calificacion: Number(document.getElementById('calificacionValoracion').value),
+      comentario: document.getElementById('comentarioValoracion').value.trim(),
+      anonimo: document.getElementById('anonimo').checked
+    };
+
+    try {
+      await peticion('/valoraciones', { method: 'POST', body: JSON.stringify(datos) });
+      e.target.reset();
+      mostrarMensaje(mensaje, 'Valoración enviada. Se publicará cuando el administrador la apruebe.', 'success');
+      await cargarMisValoraciones();
+    } catch (error) {
+      mostrarMensaje(mensaje, error.message);
+    }
+  });
+});
+
+function enlaceBusquedaAlerta(alerta) {
+  const parametros = new URLSearchParams({ buscar: alerta.palabraClave });
+
+  if (alerta.ubicacion === 'Remoto') parametros.set('modalidad', 'Remoto');
+  else if (alerta.ubicacion !== 'Todo el país') parametros.set('departamento', alerta.ubicacion);
+
+  return `busqueda.html?${parametros.toString()}`;
+}
+
+async function cargarUbicacionesAlerta() {
+  const catalogos = await peticion('/ofertas/catalogos');
+  const select = document.getElementById('alertaUbicacion');
+
+  select.innerHTML = '<option>Todo el país</option><option>Remoto</option>' + catalogos.departamentos
+    .map((d) => `<option>${escaparHtml(d.nombre)}</option>`)
+    .join('');
+}
+
+async function cargarAlertas() {
+  const alertas = await peticion('/candidato/alertas');
+  const lista = document.getElementById('listaAlertas');
+
+  if (alertas.length === 0) {
+    lista.innerHTML = '<p class="text-muted mb-0">Aún no tienes alertas.</p>';
+    return;
+  }
+
+  lista.innerHTML = alertas.map((a) => {
+    const medios = [a.porCorreo ? 'Correo' : '', a.porSms ? 'SMS' : ''].filter(Boolean).join(' y ');
+
+    return `<div class="d-flex justify-content-between align-items-start border-bottom py-2 gap-2">
+      <div>
+        <strong>${escaparHtml(a.palabraClave)}</strong>
+        <small class="d-block text-muted">${escaparHtml(a.ubicacion)} · ${a.frecuencia} · ${medios}</small>
+        <a href="${enlaceBusquedaAlerta(a)}" class="small">${a.coincidencias} ${a.coincidencias === 1 ? 'oferta coincide' : 'ofertas coinciden'}</a>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" data-alerta="${a.alertaId}" ${a.activa ? 'checked' : ''} title="Activar o pausar">
+        </div>
+        <button class="btn btn-sm btn-outline-danger" data-eliminar-alerta="${a.alertaId}" title="Eliminar"><i class="bi bi-trash"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const mensajeLista = document.getElementById('mensajeAlertas');
+  const mensajeForm = document.getElementById('mensajeAlerta');
+
+  try {
+    await Promise.all([cargarUbicacionesAlerta(), cargarAlertas()]);
+  } catch (error) {
+    mostrarMensaje(mensajeLista, error.message);
+  }
+
+  document.getElementById('formAlerta').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const datos = {
+      palabraClave: document.getElementById('alertaPalabra').value.trim(),
+      ubicacion: document.getElementById('alertaUbicacion').value,
+      frecuencia: document.getElementById('alertaFrecuencia').value,
+      porCorreo: document.getElementById('porCorreo').checked,
+      porSms: document.getElementById('porSms').checked
+    };
+
+    try {
+      await peticion('/candidato/alertas', { method: 'POST', body: JSON.stringify(datos) });
+      e.target.reset();
+      mostrarMensaje(mensajeForm, 'Alerta creada correctamente', 'success');
+      await cargarAlertas();
+    } catch (error) {
+      mostrarMensaje(mensajeForm, error.message);
+    }
+  });
+
+  document.getElementById('listaAlertas').addEventListener('change', async (e) => {
+    const id = e.target.dataset.alerta;
+    if (!id) return;
+
+    try {
+      await peticion(`/candidato/alertas/${id}`, { method: 'PATCH', body: JSON.stringify({ activa: e.target.checked }) });
+      mostrarMensaje(mensajeLista, e.target.checked ? 'Alerta activada' : 'Alerta pausada', 'success');
+    } catch (error) {
+      e.target.checked = !e.target.checked;
+      mostrarMensaje(mensajeLista, error.message);
+    }
+  });
+
+  document.getElementById('listaAlertas').addEventListener('click', async (e) => {
+    const boton = e.target.closest('[data-eliminar-alerta]');
+    if (!boton) return;
+
+    if (!confirm('¿Eliminar esta alerta?')) return;
+
+    try {
+      await peticion(`/candidato/alertas/${boton.dataset.eliminarAlerta}`, { method: 'DELETE' });
+      mostrarMensaje(mensajeLista, 'Alerta eliminada correctamente', 'success');
+      await cargarAlertas();
+    } catch (error) {
+      mostrarMensaje(mensajeLista, error.message);
+    }
+  });
+});

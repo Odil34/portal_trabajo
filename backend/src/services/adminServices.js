@@ -163,5 +163,7 @@ export const cambiarEstadoValoracion = async (valoracionId, estado) => {
 
     if (result.rowCount === 0) throw httpError('Valoración no encontrada', 404);
 
+    await pool.query('DELETE FROM reportes WHERE valoracionId = $1', [valoracionId]);
+
     return result.rows[0];
 };

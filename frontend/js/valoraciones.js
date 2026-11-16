@@ -157,7 +157,10 @@ async function abrirOpinionesEmpresa(empresaId) {
             const estrellas = document.createElement('span');
             estrellas.className = 'estrellas';
             estrellas.textContent = estrellasValoracion(opinion.calificacion);
-            encabezado.append(autor, estrellas);
+            const derecha = document.createElement('div');
+            derecha.className = 'd-flex align-items-center gap-2';
+            derecha.append(estrellas, crearBotonReportar(opinion.valoracionId));
+            encabezado.append(autor, derecha);
 
             const comentario = document.createElement('p');
             comentario.className = 'small text-muted mb-0 mt-2';

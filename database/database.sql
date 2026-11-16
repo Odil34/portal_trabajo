@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS alertas;
+DROP TABLE IF EXISTS reportes;
 DROP TABLE IF EXISTS valoraciones;
 DROP TABLE IF EXISTS postulaciones;
 DROP TABLE IF EXISTS ofertas;
@@ -1620,6 +1622,26 @@ CREATE TABLE valoraciones (
     fecha TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE reportes (
+    reporteId SERIAL PRIMARY KEY,
+    valoracionId INT NOT NULL REFERENCES valoraciones(valoracionId) ON DELETE CASCADE,
+    usuarioId INT NOT NULL REFERENCES usuarios(usuarioId) ON DELETE CASCADE,
+    fecha TIMESTAMP NOT NULL DEFAULT NOW(),
+    UNIQUE (valoracionId, usuarioId)
+);
+
+CREATE TABLE alertas (
+    alertaId SERIAL PRIMARY KEY,
+    candidatoId INT NOT NULL REFERENCES candidatos(candidatoId) ON DELETE CASCADE,
+    palabraClave VARCHAR(100) NOT NULL,
+    ubicacion VARCHAR(60) NOT NULL DEFAULT 'Todo el país',
+    frecuencia VARCHAR(20) NOT NULL DEFAULT 'Diaria' CHECK (frecuencia IN ('Diaria', 'Semanal')),
+    porCorreo BOOLEAN NOT NULL DEFAULT TRUE,
+    porSms BOOLEAN NOT NULL DEFAULT FALSE,
+    activa BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
 INSERT INTO roles (rol) VALUES ('admin'), ('candidato'), ('empresa');
 
 INSERT INTO usuarios (rolId, correo, clave, estado, fechaRegistro) VALUES
@@ -1716,3 +1738,8 @@ INSERT INTO valoraciones (empresaId, candidatoId, calificacion, comentario, anon
 (1, 3, 5, 'Excelente ambiente de trabajo, se aprende mucho y respetan el horario.', FALSE, 'publicada'),
 (1, 2, 4, 'Buenas prestaciones, aunque en temporada de entregas hay bastante trabajo.', TRUE, 'publicada'),
 (2, 1, 4, 'Buen ambiente de trabajo y capacitaciones constantes.', FALSE, 'pendiente');
+
+INSERT INTO alertas (candidatoId, palabraClave, ubicacion, frecuencia, porCorreo, porSms, activa) VALUES
+(1, 'Desarrollador', 'San Salvador', 'Diaria', TRUE, FALSE, TRUE),
+(1, 'Diseñador', 'Remoto', 'Semanal', TRUE, TRUE, TRUE),
+(1, 'Soporte técnico', 'Santa Ana', 'Diaria', FALSE, TRUE, FALSE);
