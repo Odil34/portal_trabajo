@@ -189,21 +189,11 @@ export const buscarOfertas = async (filtros) => {
     agregar(filtros.tipoTrabajo.trim(), 'o.tipotrabajo = ?');
   }
 
-  if (filtros.salarioMinimo !== undefined && filtros.salarioMinimo !== '') {
-    const salario = Number(filtros.salarioMinimo);
-
-    if (!Number.isFinite(salario) || salario < 0) {
-      throw httpError('Salario minimo no valido', 400);
-    }
-
-    agregar(salario, 'o.salariominimo >= ?');
+  if (filtros.salarioMinimo) {
+    agregar(Number(filtros.salarioMinimo), 'o.salariominimo >= ?');
   }
 
-  const pagina = filtros.pagina === undefined ? 1 : Number(filtros.pagina);
-
-  if (!Number.isSafeInteger(pagina) || pagina < 1 || pagina > 100000) {
-    throw httpError('Pagina no valida', 400);
-  }
+  const pagina = Number(filtros.pagina) || 1;
 
   const where = condiciones.join(' AND ');
   const total = await pool.query(`

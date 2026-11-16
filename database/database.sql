@@ -1681,7 +1681,6 @@ INSERT INTO ofertas (empresaId, titulo, ubicacion, sector, tipoTrabajo, tipoCont
  E'Prestaciones de ley.\nSeguro de vida.',
  'Laura Rivas', 'rrhh@finanzascentrales.com', '2260-5000', (NOW() + INTERVAL '25 days')::date, 'activa', NOW() - INTERVAL '5 days');
 
--- Relacionar las ofertas demostrativas con el catalogo territorial.
 UPDATE ofertas
 SET modalidad = 'Remoto',
     distritoId = NULL,
@@ -1695,7 +1694,6 @@ FROM distritos d
 WHERE LOWER(TRIM(o.ubicacion)) = LOWER(TRIM(d.nombre))
   AND LOWER(TRIM(o.ubicacion)) <> 'remoto';
 
--- Completar el municipio y departamento a partir del distrito relacionado.
 UPDATE ofertas o
 SET municipio = m.nombre,
     departamento = dep.nombre
