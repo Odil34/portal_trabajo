@@ -111,7 +111,11 @@ function mostrarDetalleOferta(oferta) {
         comentario.className = 'mb-0 small text-muted';
         comentario.textContent = valoracion.comentario;
 
-        encabezado.append(autor, estrellas);
+        const derecha = document.createElement('div');
+        derecha.className = 'd-flex align-items-center gap-2';
+        derecha.append(estrellas, crearBotonReportar(valoracion.valoracionId));
+
+        encabezado.append(autor, derecha);
         tarjeta.append(encabezado, comentario);
         lista.appendChild(tarjeta);
     });

@@ -174,45 +174,20 @@
                         <div class="col-md-7">
                             <div class="card p-3">
                                 <h6>Mis alertas</h6>
-                                <div class="d-flex justify-content-between border-bottom py-2">
-                                    <div>
-                                        <strong>Desarrollador Web</strong>
-                                        <small class="d-block text-muted">San Salvador · Diaria · Correo</small>
-                                    </div>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between border-bottom py-2">
-                                    <div>
-                                        <strong>Diseñador UX/UI</strong>
-                                        <small class="d-block text-muted">Remoto · Semanal · Correo y SMS</small>
-                                    </div>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" checked>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between py-2">
-                                    <div>
-                                        <strong>Soporte técnico</strong>
-                                        <small class="d-block text-muted">Santa Ana · Diaria · SMS</small>
-                                    </div>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox">
-                                    </div>
-                                </div>
+                                <div id="mensajeAlertas"></div>
+                                <div id="listaAlertas"></div>
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <form class="card p-3" action="perfil.html">
+                            <form class="card p-3" id="formAlerta">
                                 <h6>Nueva alerta</h6>
-                                <input type="text" class="form-control mb-2" placeholder="Palabra clave o puesto" required>
-                                <select class="form-select mb-2">
+                                <div id="mensajeAlerta"></div>
+                                <input type="text" id="alertaPalabra" class="form-control mb-2" placeholder="Palabra clave o puesto" required>
+                                <select class="form-select mb-2" id="alertaUbicacion">
                                     <option>Todo el país</option>
-                                    <option>San Salvador</option>
                                     <option>Remoto</option>
                                 </select>
-                                <select class="form-select mb-2">
+                                <select class="form-select mb-2" id="alertaFrecuencia">
                                     <option>Diaria</option>
                                     <option>Semanal</option>
                                 </select>
@@ -234,42 +209,41 @@
 
                 <div class="tab-pane fade" id="valoraciones">
                     <h4 class="fw-bold text-azul mb-3">Valorar una empresa</h4>
-                    <form class="card p-4 mb-3" action="perfil.html">
+                    <form class="card p-4 mb-3" id="formValoracion">
+                        <div id="mensajeValoracion"></div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label">Empresa</label>
-                                <select class="form-select" required>
+                                <label class="form-label" for="empresaValoracion">Empresa</label>
+                                <select class="form-select" id="empresaValoracion" required>
                                     <option value="">Selecciona...</option>
-                                    <option>Retail Plus</option>
-                                    <option>Logística Pacífico</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Calificación</label>
-                                <select class="form-select" required>
+                                <label class="form-label" for="calificacionValoracion">Calificación</label>
+                                <select class="form-select" id="calificacionValoracion" required>
                                     <option value="">Selecciona...</option>
-                                    <option>★★★★★ Excelente</option>
-                                    <option>★★★★ Buena</option>
-                                    <option>★★★ Regular</option>
-                                    <option>★★ Mala</option>
-                                    <option>★ Muy mala</option>
+                                    <option value="5">★★★★★ Excelente</option>
+                                    <option value="4">★★★★ Buena</option>
+                                    <option value="3">★★★ Regular</option>
+                                    <option value="2">★★ Mala</option>
+                                    <option value="1">★ Muy mala</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Comentario</label>
-                                <textarea class="form-control" rows="3" required></textarea>
+                                <label class="form-label" for="comentarioValoracion">Comentario</label>
+                                <textarea class="form-control" id="comentarioValoracion" rows="3" required></textarea>
                             </div>
                         </div>
                         <div class="form-check my-3">
                             <input class="form-check-input" type="checkbox" id="anonimo">
                             <label class="form-check-label" for="anonimo">Publicar como anónimo</label>
                         </div>
+                        <p class="small text-muted mb-3"><i class="bi bi-info-circle"></i> Tu valoración será revisada por el administrador antes de publicarse.</p>
                         <button type="submit" class="btn btn-verde align-self-start">Enviar valoración</button>
                     </form>
                     <div class="card p-3">
                         <h6>Mis valoraciones</h6>
-                        <p class="mb-2">Logística Pacífico <span class="estrellas">★★★★★</span> <span class="badge bg-warning text-dark">En revisión</span></p>
-                        <p class="mb-0">Retail Plus <span class="estrellas">★★★★</span> <span class="badge bg-success">Publicada</span></p>
+                        <div id="listaMisValoraciones"></div>
                     </div>
                 </div>
 

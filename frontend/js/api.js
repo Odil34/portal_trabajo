@@ -71,6 +71,33 @@ function formatoFecha(fecha) {
     : fechaLocal.toLocaleDateString('es-SV');
 }
 
+function crearBotonReportar(valoracionId) {
+  const boton = document.createElement('button');
+  boton.type = 'button';
+  boton.className = 'btn btn-link btn-sm text-danger p-0';
+  boton.innerHTML = '<i class="bi bi-flag"></i> Reportar';
+
+  boton.addEventListener('click', async () => {
+    if (!obtenerSesion()) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    if (!confirm('¿Reportar esta opinión por contenido inapropiado? El administrador la revisará.')) return;
+
+    try {
+      const respuesta = await peticion(`/valoraciones/${valoracionId}/reportar`, { method: 'POST' });
+      boton.textContent = 'Reportada';
+      boton.disabled = true;
+      alert(respuesta.message);
+    } catch (error) {
+      alert(error.message);
+    }
+  });
+
+  return boton;
+}
+
 function mostrarMensaje(contenedor, mensaje, tipo = 'danger') {
   contenedor.className = `mensaje alert alert-${tipo}`;
   contenedor.textContent = mensaje;
