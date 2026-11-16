@@ -145,14 +145,51 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Ubicación *</label>
-                                <select id="ofUbicacion" class="form-select" required>
+                                <select class="form-select" required>
                                     <option value="">Selecciona...</option>
                                     <option>San Salvador</option>
                                     <option>La Libertad</option>
-                                    <option>Antiguo Cuscatlán</option>
                                     <option>Santa Ana</option>
                                     <option>Remoto</option>
                                 </select>
+                            </div>
+                            <div class="col-md-4" id="campoDepartamentoOferta">
+                                <label class="form-label" for="departamentoOfertaTexto">Departamento *</label>
+                                <div class="catalogo-buscable" id="catalogoDepartamentoOferta">
+                                    <input class="form-control catalogo-entrada" type="text"
+                                           id="departamentoOfertaTexto" placeholder="Escribe para buscar..."
+                                           autocomplete="off" role="combobox" aria-expanded="false"
+                                           aria-controls="opcionesDepartamentoOferta" required>
+                                    <input type="hidden" name="departamento" id="departamentoOferta">
+                                    <div class="catalogo-opciones" id="opcionesDepartamentoOferta" role="listbox"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="campoMunicipioOferta">
+                                <label class="form-label" for="municipioOfertaTexto">Municipio *</label>
+                                <div class="catalogo-buscable" id="catalogoMunicipioOferta">
+                                    <input class="form-control catalogo-entrada" type="text"
+                                           id="municipioOfertaTexto" placeholder="Primero selecciona un departamento"
+                                           autocomplete="off" role="combobox" aria-expanded="false"
+                                           aria-controls="opcionesMunicipioOferta" disabled required>
+                                    <input type="hidden" name="municipio" id="municipioOferta">
+                                    <div class="catalogo-opciones" id="opcionesMunicipioOferta" role="listbox"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="campoDistritoOferta">
+                                <label class="form-label" for="distritoOfertaTexto">Distrito *</label>
+                                <div class="catalogo-buscable" id="catalogoDistritoOferta">
+                                    <input class="form-control catalogo-entrada" type="text"
+                                           id="distritoOfertaTexto" placeholder="Primero selecciona un municipio"
+                                           autocomplete="off" role="combobox" aria-expanded="false"
+                                           aria-controls="opcionesDistritoOferta" disabled required>
+                                    <input type="hidden" name="distritoId" id="distritoOferta">
+                                    <div class="catalogo-opciones" id="opcionesDistritoOferta" role="listbox"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <small class="text-muted" id="ayudaUbicacionOferta">
+                                    Selecciona la ubicación de la vacante. Las opciones se muestran en orden alfabético.
+                                </small>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Sector *</label>

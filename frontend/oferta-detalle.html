@@ -36,114 +36,71 @@
 <main class="container py-4">
     <a href="busqueda.html" class="d-inline-block mb-3"><i class="bi bi-arrow-left"></i> Volver a los resultados</a>
 
-    <div class="card p-4 mb-4">
-        <div class="d-flex flex-wrap gap-3 align-items-center">
-            <div class="logo-empresa bg-primary">ND</div>
-            <div class="flex-grow-1">
-                <h2 class="fw-bold text-azul mb-0">Desarrollador Web Full Stack</h2>
-                <p class="mb-2">Nexo Digital <span class="estrellas"><i class="bi bi-star-fill"></i> 4.6</span></p>
-                <span class="badge bg-light text-dark"><i class="bi bi-geo-alt"></i> San Salvador</span>
-                <span class="badge bg-light text-dark">Tiempo completo</span>
-                <span class="badge bg-light text-dark">Contrato indefinido</span>
-                <span class="badge bg-light text-dark">Publicado el 21/10/2026</span>
-            </div>
-            <div class="text-end">
-                <h4 class="text-success fw-bold">$1,200 - $1,600</h4>
-                <button class="btn btn-verde" data-bs-toggle="modal" data-bs-target="#modalAplicar">Aplicar ahora</button>
-                <button class="btn btn-outline-secondary"><i class="bi bi-bookmark"></i></button>
-                <a href="login.html" class="d-block small text-danger mt-2"><i class="bi bi-flag"></i> Reportar oferta</a>
+    <div id="estadoDetalle" class="alert alert-info">Cargando información del empleo...</div>
+
+    <div id="contenidoDetalle" hidden>
+        <div class="card p-4 mb-4">
+            <div class="d-flex flex-wrap gap-3 align-items-center">
+                <div class="logo-empresa bg-primary" id="logoEmpresa"></div>
+                <div class="flex-grow-1">
+                    <h2 class="fw-bold text-azul mb-0" id="tituloOferta"></h2>
+                    <p class="mb-2"><span id="nombreEmpresa"></span> <span class="estrellas" id="calificacionEmpresa"></span></p>
+                    <span class="badge bg-light text-dark" id="ubicacionOferta"></span>
+                    <span class="badge bg-light text-dark" id="tipoTrabajoOferta"></span>
+                    <span class="badge bg-light text-dark" id="tipoContratoOferta"></span>
+                    <span class="badge bg-light text-dark" id="fechaPublicacionOferta"></span>
+                </div>
+                <div class="text-end">
+                    <h4 class="text-success fw-bold" id="salarioOferta"></h4>
+                    <button class="btn btn-verde" data-bs-toggle="modal" data-bs-target="#modalAplicar">Aplicar ahora</button>
+                    <a href="login.html" class="d-block small text-danger mt-2"><i class="bi bi-flag"></i> Reportar oferta</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row g-4">
-        <div class="col-lg-8">
-            <div class="card p-4 mb-4">
-                <h4 class="text-azul">Descripción del puesto</h4>
-                <p>Buscamos un desarrollador que se una a nuestro equipo para crear aplicaciones web para clientes de Centroamérica.</p>
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card p-4 mb-4">
+                    <h4 class="text-azul">Descripción del puesto</h4>
+                    <p id="descripcionOferta"></p>
+                    <h5 class="text-azul">Responsabilidades</h5>
+                    <ul id="responsabilidadesOferta"></ul>
+                    <h5 class="text-azul">Requisitos</h5>
+                    <ul id="requisitosOferta"></ul>
+                    <h5 class="text-azul">Beneficios</h5>
+                    <ul id="beneficiosOferta" class="mb-0"></ul>
+                </div>
 
-                <h5 class="text-azul">Responsabilidades</h5>
-                <ul>
-                    <li>Desarrollar y mantener aplicaciones web.</li>
-                    <li>Crear y consumir APIs REST.</li>
-                    <li>Trabajar en equipo usando metodologías ágiles.</li>
-                </ul>
-
-                <h5 class="text-azul">Requisitos</h5>
-                <ul>
-                    <li>Estudiante o graduado de Ingeniería en Sistemas.</li>
-                    <li>Conocimientos de HTML, CSS, JavaScript y Bootstrap.</li>
-                    <li>Conocimientos de bases de datos SQL.</li>
-                    <li>1 a 2 años de experiencia.</li>
-                </ul>
-
-                <h5 class="text-azul">Beneficios</h5>
-                <ul class="mb-0">
-                    <li>Prestaciones de ley y seguro médico.</li>
-                    <li>Trabajo híbrido.</li>
-                    <li>Capacitaciones pagadas.</li>
-                </ul>
-            </div>
-
-            <div class="card p-4">
-                <h4 class="text-azul">Comentarios y valoraciones de la empresa</h4>
-                <div class="d-flex align-items-center gap-3 mb-3">
-                    <h1 class="fw-bold mb-0">4.6</h1>
-                    <div>
-                        <div class="estrellas">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                <div class="card p-4">
+                    <h4 class="text-azul">Comentarios y valoraciones de la empresa</h4>
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <h1 class="fw-bold mb-0" id="promedioValoraciones">—</h1>
+                        <div>
+                            <div class="estrellas" id="estrellasValoraciones"></div>
+                            <small class="text-muted" id="totalValoraciones"></small>
                         </div>
-                        <small class="text-muted">128 opiniones</small>
                     </div>
+                    <div id="listaValoraciones"></div>
                 </div>
-
-                <div class="border rounded p-3 mb-2">
-                    <div class="d-flex justify-content-between">
-                        <div><strong>Carlos L.</strong> <span class="estrellas small">★★★★★</span></div>
-                        <a href="login.html" class="small text-danger"><i class="bi bi-flag"></i> Reportar</a>
-                    </div>
-                    <p class="mb-0 small text-muted">Excelente ambiente de trabajo, se aprende mucho y respetan el horario.</p>
-                </div>
-                <div class="border rounded p-3 mb-4">
-                    <div class="d-flex justify-content-between">
-                        <div><strong>Anónimo</strong> <span class="estrellas small">★★★★☆</span></div>
-                        <a href="login.html" class="small text-danger"><i class="bi bi-flag"></i> Reportar</a>
-                    </div>
-                    <p class="mb-0 small text-muted">Buenas prestaciones, aunque en temporada de entregas hay bastante trabajo.</p>
-                </div>
-
-                <h6>Deja tu comentario</h6>
-                <form action="login.html">
-                    <select class="form-select mb-2" required>
-                        <option value="">Calificación</option>
-                        <option>★★★★★ Excelente</option>
-                        <option>★★★★ Buena</option>
-                        <option>★★★ Regular</option>
-                        <option>★★ Mala</option>
-                        <option>★ Muy mala</option>
-                    </select>
-                    <textarea class="form-control mb-2" rows="3" placeholder="Escribe tu experiencia con esta empresa" required></textarea>
-                    <p class="small text-muted mb-2"><i class="bi bi-info-circle"></i> Tu comentario será revisado por el administrador antes de publicarse.</p>
-                    <button type="submit" class="btn btn-azul">Publicar comentario</button>
-                </form>
             </div>
-        </div>
 
-        <div class="col-lg-4">
-            <div class="card p-4 mb-4">
-                <h5 class="text-azul">Resumen</h5>
-                <p class="mb-1"><strong>Experiencia:</strong> 1 - 2 años</p>
-                <p class="mb-1"><strong>Sector:</strong> Tecnología</p>
-                <p class="mb-1"><strong>Vacantes:</strong> 2</p>
-                <p class="mb-0"><strong>Fecha de cierre:</strong> 15/11/2026</p>
-            </div>
-            <div class="card p-4">
-                <h5 class="text-azul">Contacto de la empresa</h5>
-                <p class="mb-1"><i class="bi bi-person"></i> Ricardo Méndez</p>
-                <p class="mb-1"><i class="bi bi-envelope"></i> talento@nexodigital.com</p>
-                <p class="mb-1"><i class="bi bi-telephone"></i> 2250-1234</p>
-                <p><i class="bi bi-geo-alt"></i> Col. Escalón, San Salvador</p>
-                <button class="btn btn-verde w-100" data-bs-toggle="modal" data-bs-target="#modalAplicar">Aplicar a este empleo</button>
+            <div class="col-lg-4">
+                <div class="card p-4 mb-4">
+                    <h5 class="text-azul">Resumen</h5>
+                    <p class="mb-1"><strong>Experiencia:</strong> <span id="experienciaOferta"></span></p>
+                    <p class="mb-1"><strong>Sector:</strong> <span id="sectorOferta"></span></p>
+                    <p class="mb-1"><strong>Vacantes:</strong> <span id="vacantesOferta"></span></p>
+                    <p class="mb-0"><strong>Fecha de cierre:</strong> <span id="fechaCierreOferta"></span></p>
+                </div>
+                <div class="card p-4">
+                    <h5 class="text-azul">Contacto de la empresa</h5>
+                    <p class="mb-1"><i class="bi bi-person"></i> <span id="personaContacto"></span></p>
+                    <p class="mb-1"><i class="bi bi-envelope"></i> <a id="correoContacto"></a></p>
+                    <p class="mb-1" id="telefonoContactoFila"><i class="bi bi-telephone"></i> <span id="telefonoContacto"></span></p>
+                    <p id="direccionEmpresa"><i class="bi bi-geo-alt"></i> <span></span></p>
+                    <a id="sitioWebEmpresa" class="d-block mb-3" target="_blank" rel="noopener noreferrer" hidden>Visitar sitio web</a>
+                    <button class="btn btn-verde w-100" data-bs-toggle="modal" data-bs-target="#modalAplicar">Aplicar a este empleo</button>
+                </div>
             </div>
         </div>
     </div>

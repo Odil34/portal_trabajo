@@ -45,56 +45,75 @@
 <section class="hero text-center">
     <div class="container">
         <h1 class="fw-bold">Encuentra el empleo ideal para ti</h1>
-        <p class="lead mb-4">Miles de ofertas de trabajo en El Salvador en un solo lugar.</p>
+        <p class="lead mb-4">Encuentra oportunidades de trabajo en El Salvador en un solo lugar.</p>
 
-        <form class="bg-white p-3 rounded-3 text-start" action="busqueda.html">
+        <form class="bg-white p-3 rounded-3 text-start"
+          action="busqueda.html" id="formBusquedaInicio">
             <div class="row g-2">
                 <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Puesto, palabra clave o empresa">
+                    <input type="text" class="form-control" name="buscar" placeholder="Puesto, palabra clave o empresa">
                 </div>
                 <div class="col-md-4">
-                    <select class="form-select">
-                        <option>Todo el país</option>
-                        <option>San Salvador</option>
-                        <option>La Libertad</option>
-                        <option>Santa Ana</option>
-                        <option>San Miguel</option>
-                        <option>Remoto</option>
-                    </select>
+                    <div class="catalogo-buscable" id="catalogoDepartamentoInicio">
+                        <input class="form-control catalogo-entrada" type="text" id="departamentoInicioTexto"
+                               placeholder="Todo el país" autocomplete="off" role="combobox"
+                               aria-expanded="false" aria-controls="opcionesDepartamentoInicio">
+                        <input type="hidden" name="departamento" id="departamentoInicio">
+                        <div class="catalogo-opciones" id="opcionesDepartamentoInicio" role="listbox"></div>
+                    </div>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-verde w-100">Buscar</button>
                 </div>
-                <div class="col-6 col-md-3">
-                    <select class="form-select">
-                        <option>Tipo de trabajo</option>
-                        <option>Tiempo completo</option>
-                        <option>Medio tiempo</option>
+                <div class="col-6 col-md-4">
+                    <div class="catalogo-buscable" id="catalogoDistritoInicio">
+                        <input class="form-control catalogo-entrada" type="text" id="distritoInicioTexto"
+                               placeholder="Primero selecciona un departamento" autocomplete="off"
+                               role="combobox" aria-expanded="false" aria-controls="opcionesDistritoInicio" disabled>
+                        <input type="hidden" name="distrito" id="distritoInicio">
+                        <div class="catalogo-opciones" id="opcionesDistritoInicio" role="listbox"></div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" name="modalidad">
+                        <option value="">Todas las modalidades</option>
+                        <option value="Presencial">Presencial</option>
+                        <option value="Híbrido">Híbrido</option>
+                        <option value="Remoto">Remoto</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-4">
+                    <select class="form-select" name="tipoTrabajo">
+                       <option value="">Tipo de trabajo</option>
+                       <option value="Tiempo completo">Tiempo completo</option>
+                       <option value="Medio tiempo">Medio tiempo</option>
                     </select>
                 </div>
                 <div class="col-6 col-md-3">
-                    <select class="form-select">
-                        <option>Salario</option>
-                        <option>Menos de $500</option>
-                        <option>$500 - $1,000</option>
-                        <option>Más de $1,000</option>
+                    <select class="form-select" name="salarioMinimo">
+                      <option value="">Salario</option>
+                      <option value="500">Desde $500</option>
+                      <option value="1000">Desde $1,000</option>
+                      <option value="1500">Desde $1,500</option>
                     </select>
                 </div>
                 <div class="col-6 col-md-3">
-                    <select class="form-select">
-                        <option>Experiencia</option>
-                        <option>Sin experiencia</option>
-                        <option>1 - 2 años</option>
-                        <option>Más de 3 años</option>
-                    </select>
+                <select class="form-select" name="experiencia">
+                    <option value="">Experiencia</option>
+                    <option value="Sin experiencia">Sin experiencia</option>
+                    <option value="1 - 2 años">1 - 2 años</option>
+                    <option value="Más de 3 años">Más de 3 años</option>
+                </select>
+
                 </div>
                 <div class="col-6 col-md-3">
-                    <select class="form-select">
-                        <option>Tipo de contrato</option>
-                        <option>Indefinido</option>
-                        <option>Temporal</option>
-                        <option>Pasantía</option>
-                    </select>
+                <select class="form-select" name="tipoContrato">
+                    <option value="">Tipo de contrato</option>
+                    <option value="Indefinido">Indefinido</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Pasantía">Pasantía</option>
+                </select>
+
                 </div>
             </div>
         </form>
@@ -102,84 +121,48 @@
 </section>
 
 <main class="container py-5">
-    <div class="row g-3 text-center mb-5">
-        <div class="col-6 col-md-3">
-            <div class="card p-3">
-                <i class="bi bi-building fs-2 text-azul"></i>
-                <h3 class="fw-bold mb-0">1,250</h3>
-                <p class="text-muted mb-0">Empresas</p>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card p-3">
-                <i class="bi bi-people fs-2 text-success"></i>
-                <h3 class="fw-bold mb-0">48,300</h3>
-                <p class="text-muted mb-0">Usuarios</p>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card p-3">
-                <i class="bi bi-briefcase fs-2 text-primary"></i>
-                <h3 class="fw-bold mb-0">3,870</h3>
-                <p class="text-muted mb-0">Empleos publicados</p>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="card p-3">
-                <i class="bi bi-send-check fs-2 text-danger"></i>
-                <h3 class="fw-bold mb-0">126,400</h3>
-                <p class="text-muted mb-0">Solicitudes recibidas</p>
-            </div>
+
+<div class="row g-3 text-center mb-5">
+    <div class="col-6 col-md-3">
+        <div class="card p-3">
+            <i class="bi bi-building fs-2 text-azul"></i>
+            <h3 class="fw-bold mb-0" id="totalEmpresas">0</h3>
+            <p class="text-muted mb-0">Empresas</p>
         </div>
     </div>
+
+    <div class="col-6 col-md-3">
+        <div class="card p-3">
+            <i class="bi bi-people fs-2 text-success"></i>
+            <h3 class="fw-bold mb-0" id="totalUsuarios">0</h3>
+            <p class="text-muted mb-0">Usuarios</p>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+        <div class="card p-3">
+            <i class="bi bi-briefcase fs-2 text-primary"></i>
+            <h3 class="fw-bold mb-0" id="totalEmpleos">0</h3>
+            <p class="text-muted mb-0">Empleos publicados</p>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+        <div class="card p-3">
+            <i class="bi bi-send-check fs-2 text-danger"></i>
+            <h3 class="fw-bold mb-0" id="totalPostulaciones">0</h3>
+            <p class="text-muted mb-0">Solicitudes recibidas</p>
+        </div>
+    </div>
+</div>
+
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="h4 fw-bold text-azul mb-0">Empleos recientes</h2>
         <a href="busqueda.html" class="btn btn-outline-secondary btn-sm">Ver todos</a>
     </div>
-    <div class="row g-3 mb-5">
-        <div class="col-md-4">
-            <div class="card card-oferta p-3 h-100">
-                <div class="d-flex gap-3 mb-2">
-                    <div class="logo-empresa bg-primary">ND</div>
-                    <div>
-                        <h5 class="mb-0">Desarrollador Web</h5>
-                        <small class="text-muted">Nexo Digital</small>
-                    </div>
-                </div>
-                <p class="small text-muted mb-2"><i class="bi bi-geo-alt"></i> San Salvador · Tiempo completo</p>
-                <p class="fw-semibold text-success mb-3">$1,200 - $1,600</p>
-                <a href="oferta-detalle.html" class="btn btn-azul btn-sm mt-auto">Ver oferta</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-oferta p-3 h-100">
-                <div class="d-flex gap-3 mb-2">
-                    <div class="logo-empresa bg-success">FC</div>
-                    <div>
-                        <h5 class="mb-0">Analista de Créditos</h5>
-                        <small class="text-muted">Finanzas Centrales</small>
-                    </div>
-                </div>
-                <p class="small text-muted mb-2"><i class="bi bi-geo-alt"></i> Antiguo Cuscatlán · Tiempo completo</p>
-                <p class="fw-semibold text-success mb-3">$850 - $1,100</p>
-                <a href="oferta-detalle.html" class="btn btn-azul btn-sm mt-auto">Ver oferta</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card card-oferta p-3 h-100">
-                <div class="d-flex gap-3 mb-2">
-                    <div class="logo-empresa bg-danger">VP</div>
-                    <div>
-                        <h5 class="mb-0">Enfermera(o)</h5>
-                        <small class="text-muted">Clínica Vida Plena</small>
-                    </div>
-                </div>
-                <p class="small text-muted mb-2"><i class="bi bi-geo-alt"></i> Santa Ana · Turnos rotativos</p>
-                <p class="fw-semibold text-success mb-3">$700 - $900</p>
-                <a href="oferta-detalle.html" class="btn btn-azul btn-sm mt-auto">Ver oferta</a>
-            </div>
-        </div>
+    <div class="row g-3 mb-5" id="ofertasRecientes">
+      <p class="text-muted">Cargando empleos recientes...</p>
     </div>
 
     <div class="row g-3 mb-5">
