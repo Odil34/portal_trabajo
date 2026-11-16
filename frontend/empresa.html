@@ -28,36 +28,37 @@
 
         <main class="col-md-9 col-lg-10 p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold text-azul mb-0">Nexo Digital</h3>
-                <span><i class="bi bi-person-circle"></i> Ricardo Méndez</span>
+                <h3 id="nombreEmpresa" class="fw-bold text-azul mb-0">Cargando...</h3>
+                <span><i class="bi bi-person-circle"></i> <span id="contactoEmpresa"></span></span>
             </div>
 
             <div class="tab-content">
 
                 <div class="tab-pane fade show active" id="panel">
+                    <div id="mensajePanel"></div>
                     <div class="row g-3 mb-4">
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-primary text-white"><i class="bi bi-briefcase"></i></div>
-                                <div><h4 class="fw-bold mb-0">8</h4><small class="text-muted">Ofertas activas</small></div>
+                                <div><h4 id="totalOfertasActivas" class="fw-bold mb-0">0</h4><small class="text-muted">Ofertas activas</small></div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-success text-white"><i class="bi bi-person-plus"></i></div>
-                                <div><h4 class="fw-bold mb-0">34</h4><small class="text-muted">Postulaciones nuevas</small></div>
+                                <div><h4 id="totalPostulacionesNuevas" class="fw-bold mb-0">0</h4><small class="text-muted">Postulaciones nuevas</small></div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
-                                <div class="icono bg-warning text-white"><i class="bi bi-calendar-check"></i></div>
-                                <div><h4 class="fw-bold mb-0">5</h4><small class="text-muted">Entrevistas</small></div>
+                                <div class="icono bg-warning text-white"><i class="bi bi-check-circle"></i></div>
+                                <div><h4 id="totalAceptados" class="fw-bold mb-0">0</h4><small class="text-muted">Candidatos aceptados</small></div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3">
                             <div class="card p-3 d-flex flex-row align-items-center gap-3">
                                 <div class="icono bg-danger text-white"><i class="bi bi-eye"></i></div>
-                                <div><h4 class="fw-bold mb-0">2,140</h4><small class="text-muted">Visitas</small></div>
+                                <div><h4 id="totalVisitas" class="fw-bold mb-0">0</h4><small class="text-muted">Visitas</small></div>
                             </div>
                         </div>
                     </div>
@@ -71,21 +72,9 @@
                                     <th>Fecha</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tablaRecientes">
                                 <tr>
-                                    <td>Ana García</td>
-                                    <td>Desarrollador Web Full Stack</td>
-                                    <td>Hoy</td>
-                                </tr>
-                                <tr>
-                                    <td>Carlos López</td>
-                                    <td>Analista de Calidad</td>
-                                    <td>Hoy</td>
-                                </tr>
-                                <tr>
-                                    <td>María Hernández</td>
-                                    <td>Desarrollador Web Full Stack</td>
-                                    <td>Ayer</td>
+                                    <td colspan="3" class="text-center text-muted py-3">Cargando...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -93,49 +82,51 @@
                 </div>
 
                 <div class="tab-pane fade" id="datos">
-                    <form class="card p-4" action="empresa.html" id="formPublicarOferta">
+                    <form id="formDatosEmpresa" class="card p-4">
                         <h5 class="text-azul mb-3">Datos de la empresa</h5>
+                        <div id="mensajeDatos"></div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nombre de la empresa</label>
-                                <input type="text" class="form-control" value="Nexo Digital" required>
+                                <input type="text" id="empNombre" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">NIT</label>
-                                <input type="text" class="form-control" value="0614-120512-101-3" readonly>
+                                <input type="text" id="empNit" class="form-control" readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Sector</label>
-                                <select class="form-select">
-                                    <option selected>Tecnología</option>
+                                <select id="empSector" class="form-select" required>
+                                    <option>Tecnología</option>
                                     <option>Finanzas</option>
                                     <option>Salud</option>
                                     <option>Comercio</option>
+                                    <option>Educación</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Sitio web</label>
-                                <input type="url" class="form-control" value="https://www.nexodigital.com">
+                                <input type="url" id="empSitioWeb" class="form-control">
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Descripción</label>
-                                <textarea class="form-control" rows="3">Empresa salvadoreña dedicada al desarrollo de software.</textarea>
+                                <textarea id="empDescripcion" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Persona de contacto</label>
+                                <input type="text" id="empPersonaContacto" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Correo de contacto</label>
-                                <input type="email" class="form-control" value="talento@nexodigital.com" required>
+                                <input type="email" id="empCorreoContacto" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" value="2250-1234">
+                                <input type="tel" id="empTelefono" class="form-control">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Dirección</label>
-                                <input type="text" class="form-control" value="Col. Escalón, San Salvador">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Logo</label>
-                                <input type="file" class="form-control" accept=".png,.jpg">
+                                <input type="text" id="empDireccion" class="form-control">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-azul mt-3 align-self-start">Guardar cambios</button>
@@ -143,20 +134,23 @@
                 </div>
 
                 <div class="tab-pane fade" id="publicar">
-                    <form class="card p-4" action="empresa.html">
-                        <h5 class="text-azul mb-3">Publicar nueva oferta</h5>
+                    <form id="formOferta" class="card p-4">
+                        <h5 id="tituloFormOferta" class="text-azul mb-3">Publicar nueva oferta</h5>
+                        <div id="mensajeOferta"></div>
+                        <input type="hidden" id="ofertaIdEditar">
                         <div class="row g-3">
                             <div class="col-md-8">
                                 <label class="form-label">Título del puesto *</label>
-                                <input type="text" class="form-control" placeholder="Ej. Desarrollador Web" required>
+                                <input type="text" id="ofTitulo" class="form-control" placeholder="Ej. Desarrollador Web" required>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Modalidad *</label>
-                                <select class="form-select" id="modalidadOferta" name="modalidad" required>
+                                <label class="form-label">Ubicación *</label>
+                                <select class="form-select" required>
                                     <option value="">Selecciona...</option>
-                                    <option value="Presencial">Presencial</option>
-                                    <option value="Híbrido">Híbrido</option>
-                                    <option value="Remoto">Remoto</option>
+                                    <option>San Salvador</option>
+                                    <option>La Libertad</option>
+                                    <option>Santa Ana</option>
+                                    <option>Remoto</option>
                                 </select>
                             </div>
                             <div class="col-md-4" id="campoDepartamentoOferta">
@@ -199,17 +193,18 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Sector *</label>
-                                <select class="form-select" required>
+                                <select id="ofSector" class="form-select" required>
                                     <option value="">Selecciona...</option>
                                     <option>Tecnología</option>
                                     <option>Finanzas</option>
                                     <option>Salud</option>
+                                    <option>Comercio</option>
                                     <option>Educación</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Tipo de trabajo *</label>
-                                <select class="form-select" required>
+                                <select id="ofTipoTrabajo" class="form-select" required>
                                     <option value="">Selecciona...</option>
                                     <option>Tiempo completo</option>
                                     <option>Medio tiempo</option>
@@ -217,7 +212,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Tipo de contrato *</label>
-                                <select class="form-select" required>
+                                <select id="ofTipoContrato" class="form-select" required>
                                     <option value="">Selecciona...</option>
                                     <option>Indefinido</option>
                                     <option>Temporal</option>
@@ -226,7 +221,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Experiencia *</label>
-                                <select class="form-select" required>
+                                <select id="ofExperiencia" class="form-select" required>
                                     <option value="">Selecciona...</option>
                                     <option>Sin experiencia</option>
                                     <option>1 - 2 años</option>
@@ -234,54 +229,62 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">Salario</label>
-                                <input type="text" class="form-control" placeholder="$800 - $1,000">
+                                <label class="form-label">Salario mínimo ($)</label>
+                                <input type="number" id="ofSalarioMinimo" class="form-control" min="0" placeholder="800">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Salario máximo ($)</label>
+                                <input type="number" id="ofSalarioMaximo" class="form-control" min="0" placeholder="1000">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Vacantes *</label>
-                                <input type="number" class="form-control" min="1" value="1" required>
+                                <input type="number" id="ofVacantes" class="form-control" min="1" value="1" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Descripción del puesto *</label>
-                                <textarea class="form-control" rows="2" required></textarea>
+                                <textarea id="ofDescripcion" class="form-control" rows="2" required></textarea>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Responsabilidades *</label>
-                                <textarea class="form-control" rows="4" placeholder="Escribe una por línea" required></textarea>
+                                <textarea id="ofResponsabilidades" class="form-control" rows="4" placeholder="Escribe una por línea" required></textarea>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Requisitos *</label>
-                                <textarea class="form-control" rows="4" placeholder="Escribe uno por línea" required></textarea>
+                                <textarea id="ofRequisitos" class="form-control" rows="4" placeholder="Escribe uno por línea" required></textarea>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Beneficios</label>
-                                <textarea class="form-control" rows="4" placeholder="Escribe uno por línea"></textarea>
+                                <textarea id="ofBeneficios" class="form-control" rows="4" placeholder="Escribe uno por línea"></textarea>
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <label class="form-label">Persona de contacto *</label>
-                                <input type="text" class="form-control" value="Ricardo Méndez" required>
+                                <input type="text" id="ofPersonaContacto" class="form-control" required>
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <label class="form-label">Correo de contacto *</label>
-                                <input type="email" class="form-control" value="talento@nexodigital.com" required>
+                                <input type="email" id="ofCorreoContacto" class="form-control" required>
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <label class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" value="2250-1234">
+                                <input type="tel" id="ofTelefonoContacto" class="form-control">
                             </div>
                             <div class="col-md-6 col-lg-3">
                                 <label class="form-label">Fecha de cierre *</label>
-                                <input type="date" class="form-control" required>
+                                <input type="date" id="ofFechaCierre" class="form-control" required>
                             </div>
                         </div>
                         <p class="small text-muted mt-3 mb-0"><i class="bi bi-info-circle"></i> La oferta quedará en revisión hasta que el administrador la apruebe.</p>
-                        <button type="submit" class="btn btn-verde mt-3 align-self-start">Publicar oferta</button>
+                        <div class="mt-3">
+                            <button type="submit" id="btnGuardarOferta" class="btn btn-verde">Publicar oferta</button>
+                            <button type="button" id="btnCancelarEdicion" class="btn btn-outline-secondary d-none">Cancelar edición</button>
+                        </div>
                     </form>
                 </div>
 
                 <div class="tab-pane fade" id="ofertas">
                     <div class="card p-3">
                         <h5 class="text-azul">Mis ofertas</h5>
+                        <div id="mensajeOfertas"></div>
                         <div class="table-responsive">
                             <table class="table align-middle mb-0">
                                 <thead>
@@ -293,46 +296,9 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tablaMisOfertas">
                                     <tr>
-                                        <td>Desarrollador Backend</td>
-                                        <td><span class="badge bg-warning text-dark">En revisión</span></td>
-                                        <td>0</td>
-                                        <td>30/11/2026</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="oferta-detalle.html">Desarrollador Web Full Stack</a></td>
-                                        <td><span class="badge bg-success">Activa</span></td>
-                                        <td>47</td>
-                                        <td>15/11/2026</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Analista de Calidad</td>
-                                        <td><span class="badge bg-success">Activa</span></td>
-                                        <td>28</td>
-                                        <td>08/11/2026</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Diseñador Gráfico</td>
-                                        <td><span class="badge bg-secondary">Pausada</span></td>
-                                        <td>22</td>
-                                        <td>01/11/2026</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x-circle"></i></button>
-                                        </td>
+                                        <td colspan="5" class="text-center text-muted py-3">Cargando ofertas...</td>
                                     </tr>
                                 </tbody>
                             </table>

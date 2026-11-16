@@ -152,3 +152,106 @@ export const actualizarPerfilValidators = [
     .notEmpty()
     .withMessage('El área de interés es obligatoria')
 ];
+
+
+export const perfilEmpresaValidators = [
+  body('nombre')
+    .trim()
+    .notEmpty()
+    .withMessage('El nombre de la empresa es obligatorio'),
+
+  body('sector')
+    .trim()
+    .notEmpty()
+    .withMessage('El sector es obligatorio'),
+
+  body('personaContacto')
+    .trim()
+    .notEmpty()
+    .withMessage('La persona de contacto es obligatoria'),
+
+  body('correoContacto')
+    .trim()
+    .isEmail()
+    .withMessage('El correo de contacto no tiene un formato válido')
+];
+
+export const ofertaEmpresaValidators = [
+  body('titulo')
+    .trim()
+    .notEmpty()
+    .withMessage('El título del puesto es obligatorio'),
+
+  body('ubicacion')
+    .trim()
+    .notEmpty()
+    .withMessage('La ubicación es obligatoria'),
+
+  body('sector')
+    .trim()
+    .notEmpty()
+    .withMessage('El sector es obligatorio'),
+
+  body('tipoTrabajo')
+    .trim()
+    .notEmpty()
+    .withMessage('El tipo de trabajo es obligatorio'),
+
+  body('tipoContrato')
+    .trim()
+    .notEmpty()
+    .withMessage('El tipo de contrato es obligatorio'),
+
+  body('experiencia')
+    .trim()
+    .notEmpty()
+    .withMessage('La experiencia es obligatoria'),
+
+  body('salarioMinimo')
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage('El salario mínimo debe ser un número entero positivo'),
+
+  body('salarioMaximo')
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage('El salario máximo debe ser un número entero positivo'),
+
+  body('vacantes')
+    .isInt({ min: 1 })
+    .withMessage('Las vacantes deben ser un número mayor a 0'),
+
+  body('descripcion')
+    .trim()
+    .notEmpty()
+    .withMessage('La descripción del puesto es obligatoria'),
+
+  body('responsabilidades')
+    .trim()
+    .notEmpty()
+    .withMessage('Las responsabilidades son obligatorias'),
+
+  body('requisitos')
+    .trim()
+    .notEmpty()
+    .withMessage('Los requisitos son obligatorios'),
+
+  body('personaContacto')
+    .trim()
+    .notEmpty()
+    .withMessage('La persona de contacto es obligatoria'),
+
+  body('correoContacto')
+    .trim()
+    .isEmail()
+    .withMessage('El correo de contacto no tiene un formato válido'),
+
+  body('fechaCierre')
+    .isDate()
+    .withMessage('La fecha de cierre no es válida')
+];
+
+export const estadoOfertaEmpresaValidators = [
+  idParamValidator('ofertaId'),
+  estadoValidator(['activa', 'inactiva', 'cancelada'])
+];
