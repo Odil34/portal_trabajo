@@ -1,104 +1,3 @@
-<<<<<<< HEAD
-document.addEventListener('DOMContentLoaded', () => {
-    cargarCatalogosOferta();
-});
-
-async function cargarCatalogosOferta() {
-    const formulario = document.getElementById('formPublicarOferta');
-    if (!formulario) return;
-
-    const modalidad = document.getElementById('modalidadOferta');
-    const campoDepartamento = document.getElementById('campoDepartamentoOferta');
-    const campoMunicipio = document.getElementById('campoMunicipioOferta');
-    const campoDistrito = document.getElementById('campoDistritoOferta');
-    const ayudaUbicacion = document.getElementById('ayudaUbicacionOferta');
-
-    try {
-        const catalogos = await peticion('/ofertas/catalogos');
-
-        const selectorDistrito = crearSelectorBuscable('catalogoDistritoOferta', [], {
-            deshabilitado: true
-        });
-
-        const selectorMunicipio = crearSelectorBuscable('catalogoMunicipioOferta', [], {
-            deshabilitado: true,
-            alSeleccionar: opcion => {
-                const departamentoElegido = document.getElementById('departamentoOferta').value;
-                const distritos = catalogos.distritos
-                    .filter(item => item.departamento === departamentoElegido && item.municipio === opcion.value)
-                    .map(item => ({ value: String(item.distritoId), label: item.nombre }));
-
-                selectorDistrito.actualizar(distritos);
-            }
-        });
-
-        crearSelectorBuscable(
-            'catalogoDepartamentoOferta',
-            catalogos.departamentos.map(item => ({
-                value: item.nombre,
-                label: item.nombre
-            })),
-            {
-                alSeleccionar: opcion => {
-                    selectorMunicipio.limpiar();
-                    selectorDistrito.limpiar();
-
-                    const municipios = [...new Set(
-                        catalogos.distritos
-                            .filter(item => item.departamento === opcion.value)
-                            .map(item => item.municipio)
-                    )].map(nombre => ({ value: nombre, label: nombre }));
-
-                    selectorMunicipio.actualizar(municipios);
-                    selectorDistrito.deshabilitar('Primero selecciona un municipio');
-                }
-            }
-        );
-
-        modalidad.addEventListener('change', () => {
-            const esRemoto = modalidad.value === 'Remoto';
-
-            [campoDepartamento, campoMunicipio, campoDistrito].forEach(campo => {
-                const entrada = campo.querySelector('.catalogo-entrada');
-                campo.classList.toggle('d-none', esRemoto);
-                entrada.disabled = esRemoto;
-                entrada.required = !esRemoto;
-            });
-
-            if (esRemoto) {
-                document.getElementById('departamentoOferta').value = '';
-                document.getElementById('municipioOferta').value = '';
-                document.getElementById('distritoOferta').value = '';
-                document.getElementById('departamentoOfertaTexto').value = '';
-                document.getElementById('municipioOfertaTexto').value = '';
-                document.getElementById('distritoOfertaTexto').value = '';
-                selectorMunicipio.deshabilitar();
-                selectorDistrito.deshabilitar();
-                ayudaUbicacion.textContent = 'Al ser una oferta remota, no es necesario indicar departamento, municipio ni distrito.';
-            } else {
-                document.getElementById('departamentoOfertaTexto').disabled = false;
-                ayudaUbicacion.textContent = 'Selecciona departamento, municipio y distrito. Las opciones se muestran en orden alfabético.';
-            }
-        });
-
-        formulario.addEventListener('submit', evento => {
-            if (modalidad.value !== 'Remoto') {
-                const departamento = document.getElementById('departamentoOferta').value;
-                const municipio = document.getElementById('municipioOferta').value;
-                const distrito = document.getElementById('distritoOferta').value;
-
-                if (!departamento || !municipio || !distrito) {
-                    evento.preventDefault();
-                    ayudaUbicacion.textContent = 'Completa departamento, municipio y distrito para publicar la oferta.';
-                    ayudaUbicacion.classList.add('text-danger');
-                }
-            }
-        });
-    } catch (error) {
-        console.error('Error al cargar catalogos para publicar oferta:', error);
-    }
-}
-=======
 const estadosOferta = {
   en_revision: ['En revisión', 'bg-warning text-dark'],
   activa: ['Activa', 'bg-success'],
@@ -107,15 +6,16 @@ const estadosOferta = {
   rechazada: ['Rechazada', 'bg-danger']
 };
 
-// Aquí se guardan las ofertas para poder llenar el formulario al editar
 let misOfertas = [];
+let catalogos = { departamentos: [], distritos: [] };
+let selectorDepartamento = null;
+let selectorMunicipio = null;
+let selectorDistrito = null;
 
 function etiquetaOferta(estado) {
   const [texto, clase] = estadosOferta[estado];
   return `<span class="badge ${clase}">${texto}</span>`;
 }
-
-// ----- Panel -----
 
 async function cargarPanel() {
   const datos = await peticion('/empresa/dashboard');
@@ -143,8 +43,6 @@ async function cargarPanel() {
     </tr>`).join('');
 }
 
-// ----- Datos de la empresa -----
-
 async function cargarDatosEmpresa() {
   const empresa = await peticion('/empresa/perfil');
 
@@ -158,7 +56,6 @@ async function cargarDatosEmpresa() {
   document.querySelector('#empTelefono').value = empresa.telefono || '';
   document.querySelector('#empDireccion').value = empresa.direccion || '';
 
-  // Datos de contacto por defecto al publicar una oferta nueva
   document.querySelector('#ofPersonaContacto').value = empresa.personaContacto;
   document.querySelector('#ofCorreoContacto').value = empresa.correoContacto;
   document.querySelector('#ofTelefonoContacto').value = empresa.telefono || '';
@@ -189,12 +86,75 @@ document.querySelector('#formDatosEmpresa').addEventListener('submit', async (e)
   }
 });
 
-// ----- Publicar y editar oferta -----
+function municipiosDe(departamento) {
+  const nombres = catalogos.distritos
+    .filter((d) => d.departamento === departamento)
+    .map((d) => d.municipio);
+
+  return [...new Set(nombres)].map((nombre) => ({ value: nombre, label: nombre }));
+}
+
+function distritosDe(departamento, municipio) {
+  return catalogos.distritos
+    .filter((d) => d.departamento === departamento && d.municipio === municipio)
+    .map((d) => ({ value: String(d.distritoId), label: d.nombre }));
+}
+
+async function cargarCatalogos() {
+  catalogos = await peticion('/ofertas/catalogos');
+
+  selectorDistrito = crearSelectorBuscable('catalogoDistritoOferta', [], { deshabilitado: true });
+
+  selectorMunicipio = crearSelectorBuscable('catalogoMunicipioOferta', [], {
+    deshabilitado: true,
+    alSeleccionar: (opcion) => {
+      const departamento = document.querySelector('#departamentoOferta').value;
+      selectorDistrito.actualizar(distritosDe(departamento, opcion.value));
+    }
+  });
+
+  const departamentos = catalogos.departamentos.map((d) => ({ value: d.nombre, label: d.nombre }));
+
+  selectorDepartamento = crearSelectorBuscable('catalogoDepartamentoOferta', departamentos, {
+    alSeleccionar: (opcion) => {
+      selectorMunicipio.actualizar(municipiosDe(opcion.value));
+      selectorDistrito.deshabilitar('Primero selecciona un municipio');
+    }
+  });
+}
+
+function limpiarUbicacion() {
+  selectorDepartamento.limpiar();
+  selectorMunicipio.deshabilitar('Primero selecciona un departamento');
+  selectorDistrito.deshabilitar('Primero selecciona un municipio');
+}
+
+function aplicarModalidad() {
+  const esRemoto = document.querySelector('#ofModalidad').value === 'Remoto';
+
+  ['#campoDepartamentoOferta', '#campoMunicipioOferta', '#campoDistritoOferta'].forEach((id) => {
+    const campo = document.querySelector(id);
+    campo.classList.toggle('d-none', esRemoto);
+    campo.querySelector('.catalogo-entrada').required = !esRemoto;
+  });
+
+  const ayuda = document.querySelector('#ayudaUbicacionOferta');
+  ayuda.classList.remove('text-danger');
+
+  if (esRemoto) {
+    limpiarUbicacion();
+    ayuda.textContent = 'Al ser una oferta remota no es necesario indicar departamento, municipio ni distrito.';
+  } else {
+    ayuda.textContent = 'Selecciona departamento, municipio y distrito. Las opciones se muestran en orden alfabético.';
+  }
+}
+
+document.querySelector('#ofModalidad').addEventListener('change', aplicarModalidad);
 
 function leerFormularioOferta() {
   const datos = {
     titulo: document.querySelector('#ofTitulo').value,
-    ubicacion: document.querySelector('#ofUbicacion').value,
+    modalidad: document.querySelector('#ofModalidad').value,
     sector: document.querySelector('#ofSector').value,
     tipoTrabajo: document.querySelector('#ofTipoTrabajo').value,
     tipoContrato: document.querySelector('#ofTipoContrato').value,
@@ -210,10 +170,11 @@ function leerFormularioOferta() {
     fechaCierre: document.querySelector('#ofFechaCierre').value
   };
 
-  // Los salarios son opcionales: solo se envían si se escribieron
+  const distritoId = document.querySelector('#distritoOferta').value;
   const salarioMinimo = document.querySelector('#ofSalarioMinimo').value;
   const salarioMaximo = document.querySelector('#ofSalarioMaximo').value;
 
+  if (datos.modalidad !== 'Remoto' && distritoId !== '') datos.distritoId = Number(distritoId);
   if (salarioMinimo !== '') datos.salarioMinimo = salarioMinimo;
   if (salarioMaximo !== '') datos.salarioMaximo = salarioMaximo;
 
@@ -223,7 +184,7 @@ function leerFormularioOferta() {
 function llenarFormularioOferta(oferta) {
   document.querySelector('#ofertaIdEditar').value = oferta.ofertaId;
   document.querySelector('#ofTitulo').value = oferta.titulo;
-  document.querySelector('#ofUbicacion').value = oferta.ubicacion;
+  document.querySelector('#ofModalidad').value = oferta.modalidad;
   document.querySelector('#ofSector').value = oferta.sector;
   document.querySelector('#ofTipoTrabajo').value = oferta.tipoTrabajo;
   document.querySelector('#ofTipoContrato').value = oferta.tipoContrato;
@@ -240,6 +201,14 @@ function llenarFormularioOferta(oferta) {
   document.querySelector('#ofTelefonoContacto').value = oferta.telefonoContacto || '';
   document.querySelector('#ofFechaCierre').value = oferta.fechaCierre;
 
+  aplicarModalidad();
+
+  if (oferta.modalidad !== 'Remoto' && oferta.distritoId) {
+    selectorDepartamento.seleccionarValor(oferta.departamento);
+    selectorMunicipio.seleccionarValor(oferta.municipio);
+    selectorDistrito.seleccionarValor(String(oferta.distritoId));
+  }
+
   document.querySelector('#tituloFormOferta').textContent = 'Editar oferta';
   document.querySelector('#btnGuardarOferta').textContent = 'Guardar cambios';
   document.querySelector('#btnCancelarEdicion').classList.remove('d-none');
@@ -248,12 +217,13 @@ function llenarFormularioOferta(oferta) {
 async function limpiarFormularioOferta() {
   document.querySelector('#formOferta').reset();
   document.querySelector('#ofertaIdEditar').value = '';
+  aplicarModalidad();
+  limpiarUbicacion();
 
   document.querySelector('#tituloFormOferta').textContent = 'Publicar nueva oferta';
   document.querySelector('#btnGuardarOferta').textContent = 'Publicar oferta';
   document.querySelector('#btnCancelarEdicion').classList.add('d-none');
 
-  // Vuelve a poner los datos de contacto de la empresa
   await cargarDatosEmpresa();
 }
 
@@ -268,6 +238,11 @@ document.querySelector('#formOferta').addEventListener('submit', async (e) => {
   const mensaje = document.querySelector('#mensajeOferta');
   const ofertaId = document.querySelector('#ofertaIdEditar').value;
   const datos = leerFormularioOferta();
+
+  if (datos.modalidad !== 'Remoto' && !datos.distritoId) {
+    mostrarMensaje(mensaje, 'Selecciona de la lista el departamento, municipio y distrito de la oferta');
+    return;
+  }
 
   try {
     if (ofertaId) {
@@ -294,8 +269,6 @@ document.querySelector('#btnCancelarEdicion').addEventListener('click', async ()
   await limpiarFormularioOferta();
   irAPestana('#ofertas');
 });
-
-// ----- Mis ofertas -----
 
 function botonesOferta(oferta) {
   const id = oferta.ofertaId;
@@ -335,7 +308,6 @@ async function cargarMisOfertas() {
   tabla.innerHTML = misOfertas.map((o) => {
     let titulo = escaparHtml(o.titulo);
 
-    // Solo las ofertas activas se pueden ver en el detalle público
     if (o.estado === 'activa') {
       titulo = `<a href="oferta-detalle.html?id=${o.ofertaId}">${titulo}</a>`;
     }
@@ -344,7 +316,7 @@ async function cargarMisOfertas() {
       <td>${titulo}</td>
       <td>${etiquetaOferta(o.estado)}</td>
       <td>${o.postulaciones}</td>
-      <td>${formatoFecha(o.fechaCierre + 'T00:00:00')}</td>
+      <td>${formatoFecha(o.fechaCierre)}</td>
       <td class="text-nowrap">${botonesOferta(o)}</td>
     </tr>`;
   }).join('');
@@ -389,10 +361,10 @@ document.querySelector('#tablaMisOfertas').addEventListener('click', async (e) =
   }
 });
 
-// ----- Inicio de la página -----
-
 async function iniciarEmpresa() {
   try {
+    await cargarCatalogos();
+    aplicarModalidad();
     await cargarPanel();
     await cargarDatosEmpresa();
     await cargarMisOfertas();
@@ -402,4 +374,3 @@ async function iniciarEmpresa() {
 }
 
 iniciarEmpresa();
->>>>>>> origin/main

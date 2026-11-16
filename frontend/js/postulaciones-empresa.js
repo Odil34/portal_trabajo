@@ -9,35 +9,15 @@ let postulacionActualId = null;
 
 async function cargarSelectorOfertas() {
   const select = document.getElementById('selectOfertasPostulaciones');
-  let ofertas = [];
+  const ofertas = await peticion('/empresa/ofertas');
 
-  try {
-    ofertas = await peticion('/empresa/ofertas');
-  } catch (error) {
-    // Respaldo temporal mientras se une la rama feature/empresa
-    const sesion = obtenerSesion();
-    if (sesion?.usuario?.empresaId === 2) {
-      ofertas = [
-        { ofertaId: 5, titulo: 'Desarrollador Backend Java' },
-        { ofertaId: 6, titulo: 'Analista de Créditos' }
-      ];
-    } else {
-      ofertas = [
-        { ofertaId: 1, titulo: 'Desarrollador Web Full Stack' },
-        { ofertaId: 2, titulo: 'Analista de Calidad' },
-        { ofertaId: 3, titulo: 'Diseñador Gráfico' },
-        { ofertaId: 4, titulo: 'Desarrollador Backend' }
-      ];
-    }
-  }
-
-  if (!ofertas || ofertas.length === 0) {
+  if (ofertas.length === 0) {
     select.innerHTML = '<option value="">No tienes ofertas publicadas</option>';
     return null;
   }
 
   select.innerHTML = ofertas
-    .map((o) => `<option value="${o.ofertaId}">${o.titulo}</option>`)
+    .map((o) => `<option value="${o.ofertaId}">${escaparHtml(o.titulo)}</option>`)
     .join('');
 
   return select.value;
