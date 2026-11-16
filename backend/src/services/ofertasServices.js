@@ -97,6 +97,7 @@ export const obtenerDetalle = async (id) => {
        WHERE v.empresaid = e.empresaid
          AND v.estado = 'publicada') AS "totalValoraciones",
       (SELECT COALESCE(json_agg(json_build_object(
+          'valoracionId', v.valoracionid,
           'calificacion', v.calificacion,
           'comentario', v.comentario,
           'anonimo', v.anonimo,

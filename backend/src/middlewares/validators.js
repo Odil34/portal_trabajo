@@ -260,6 +260,58 @@ export const estadoOfertaEmpresaValidators = [
   estadoValidator(['activa', 'inactiva', 'cancelada'])
 ];
 
+export const crearValoracionValidators = [
+  body('empresaId')
+    .isInt({ min: 1 })
+    .withMessage('Selecciona una empresa'),
+
+  body('calificacion')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('La calificación debe ser de 1 a 5 estrellas'),
+
+  body('comentario')
+    .trim()
+    .notEmpty()
+    .withMessage('El comentario es obligatorio'),
+
+  body('anonimo')
+    .optional()
+    .isBoolean()
+    .withMessage('El campo anónimo no es válido')
+];
+
+export const crearAlertaValidators = [
+  body('palabraClave')
+    .trim()
+    .notEmpty()
+    .withMessage('La palabra clave es obligatoria'),
+
+  body('ubicacion')
+    .trim()
+    .notEmpty()
+    .withMessage('La ubicación es obligatoria'),
+
+  body('frecuencia')
+    .isIn(['Diaria', 'Semanal'])
+    .withMessage('La frecuencia debe ser Diaria o Semanal'),
+
+  body('porCorreo')
+    .isBoolean()
+    .withMessage('El campo correo no es válido'),
+
+  body('porSms')
+    .isBoolean()
+    .withMessage('El campo SMS no es válido')
+];
+
+export const estadoAlertaValidators = [
+  idParamValidator('alertaId'),
+
+  body('activa')
+    .isBoolean()
+    .withMessage('El campo activa debe ser verdadero o falso')
+];
+
 export const buscarOfertasValidators = [
   query('modalidad')
     .optional({ values: 'falsy' })
