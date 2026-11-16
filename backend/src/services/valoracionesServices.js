@@ -1,4 +1,5 @@
 import { pool } from '../db.js';
+import { httpError } from '../utils/httpError.js';
 
 export const obtenerValoraciones = async (filtros = {}) => {
   const valores = [];
@@ -53,5 +54,9 @@ export const obtenerOpinionesEmpresa = async (empresaId) => {
     GROUP BY e.empresaid, e.nombre, e.sector, e.descripcion
   `, [empresaId]);
 
-  return resultado.rows[0] || null;
+  if (resultado.rowCount === 0) {
+    throw httpError('Empresa no encontrada', 404);
+  }
+
+  return resultado.rows[0];
 };

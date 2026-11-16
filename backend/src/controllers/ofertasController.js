@@ -1,6 +1,4 @@
 import * as ofertasService from '../services/ofertasServices.js';
-import { httpError } from '../utils/httpError.js';
-
 
 export const getCatalogos = async (req, res, next) => {
   try {
@@ -40,13 +38,7 @@ export const getResumen = async (req, res, next) => {
 
 export const getDetalle = async (req, res, next) => {
   try {
-    const id = Number(req.params.id);
-
-    if (!Number.isSafeInteger(id) || id <= 0) {
-      throw httpError('ID de oferta no valido', 400);
-    }
-
-    const datos = await ofertasService.obtenerDetalle(id);
+    const datos = await ofertasService.obtenerDetalle(req.params.id);
     res.json(datos);
   } catch (err) {
     next(err);

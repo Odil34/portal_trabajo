@@ -1,7 +1,33 @@
 import { pool } from '../db.js';
 import { httpError } from '../utils/httpError.js';
 
-// Revisa que la oferta exista y que sea de la empresa que inició sesión
+const obtenerUbicacion = async (modalidad, distritoId) => {
+  if (modalidad === 'Remoto') {
+    return { ubicacion: 'Remoto', distritoId: null, municipio: null, departamento: null };
+  }
+
+  if (!distritoId) {
+    throw httpError('Selecciona el departamento, municipio y distrito de la oferta', 400);
+  }
+
+  const result = await pool.query(
+    `SELECT d.nombre AS distrito, m.nombre AS municipio, dep.nombre AS departamento
+     FROM distritos d
+     JOIN municipios m ON m.municipioid = d.municipioid
+     JOIN departamentos dep ON dep.departamentoid = m.departamentoid
+     WHERE d.distritoid = $1`,
+    [distritoId]
+  );
+
+  if (result.rowCount === 0) {
+    throw httpError('El distrito seleccionado no existe', 400);
+  }
+
+  const { distrito, municipio, departamento } = result.rows[0];
+
+  return { ubicacion: distrito, distritoId, municipio, departamento };
+};
+
 const buscarOfertaDeEmpresa = async (ofertaId, empresaId) => {
   const result = await pool.query(
     'SELECT ofertaid, empresaid, estado FROM ofertas WHERE ofertaid = $1',
@@ -153,6 +179,10 @@ export const getMisOfertas = async (empresaId) => {
     SELECT o.ofertaid AS "ofertaId",
            o.titulo,
            o.ubicacion,
+           o.modalidad,
+           o.distritoid AS "distritoId",
+           o.municipio,
+           o.departamento,
            o.sector,
            o.tipotrabajo AS "tipoTrabajo",
            o.tipocontrato AS "tipoContrato",
@@ -182,7 +212,7 @@ export const getMisOfertas = async (empresaId) => {
 
 export const crearOferta = async (empresaId, datos) => {
   const {
-    titulo, ubicacion, sector, tipoTrabajo, tipoContrato, experiencia,
+    titulo, modalidad, distritoId, sector, tipoTrabajo, tipoContrato, experiencia,
     salarioMinimo, salarioMaximo, vacantes, descripcion, responsabilidades,
     requisitos, beneficios, personaContacto, correoContacto, telefonoContacto, fechaCierre
   } = datos;
@@ -191,11 +221,15 @@ export const crearOferta = async (empresaId, datos) => {
     throw httpError('El salario máximo no puede ser menor que el salario mínimo', 400);
   }
 
+  const lugar = await obtenerUbicacion(modalidad, distritoId);
+
   const query = `
     INSERT INTO ofertas (empresaid, titulo, ubicacion, sector, tipotrabajo, tipocontrato, experiencia,
                          salariominimo, salariomaximo, vacantes, descripcion, responsabilidades, requisitos,
-                         beneficios, personacontacto, correocontacto, telefonocontacto, fechacierre, estado)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, 'en_revision')
+                         beneficios, personacontacto, correocontacto, telefonocontacto, fechacierre,
+                         modalidad, distritoid, municipio, departamento, estado)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
+            $19, $20, $21, $22, 'en_revision')
     RETURNING ofertaid AS "ofertaId",
               titulo,
               estado,
@@ -205,7 +239,7 @@ export const crearOferta = async (empresaId, datos) => {
   const values = [
     empresaId,
     titulo,
-    ubicacion,
+    lugar.ubicacion,
     sector,
     tipoTrabajo,
     tipoContrato,
@@ -220,7 +254,11 @@ export const crearOferta = async (empresaId, datos) => {
     personaContacto,
     correoContacto,
     telefonoContacto || null,
-    fechaCierre
+    fechaCierre,
+    modalidad,
+    lugar.distritoId,
+    lugar.municipio,
+    lugar.departamento
   ];
 
   const result = await pool.query(query, values);
@@ -235,7 +273,7 @@ export const editarOferta = async (ofertaId, empresaId, datos) => {
   }
 
   const {
-    titulo, ubicacion, sector, tipoTrabajo, tipoContrato, experiencia,
+    titulo, modalidad, distritoId, sector, tipoTrabajo, tipoContrato, experiencia,
     salarioMinimo, salarioMaximo, vacantes, descripcion, responsabilidades,
     requisitos, beneficios, personaContacto, correoContacto, telefonoContacto, fechaCierre
   } = datos;
@@ -243,6 +281,8 @@ export const editarOferta = async (ofertaId, empresaId, datos) => {
   if (salarioMinimo && salarioMaximo && Number(salarioMaximo) < Number(salarioMinimo)) {
     throw httpError('El salario máximo no puede ser menor que el salario mínimo', 400);
   }
+
+  const lugar = await obtenerUbicacion(modalidad, distritoId);
 
   const query = `
     UPDATE ofertas
@@ -262,8 +302,12 @@ export const editarOferta = async (ofertaId, empresaId, datos) => {
         personacontacto = $14,
         correocontacto = $15,
         telefonocontacto = $16,
-        fechacierre = $17
-    WHERE ofertaid = $18
+        fechacierre = $17,
+        modalidad = $18,
+        distritoid = $19,
+        municipio = $20,
+        departamento = $21
+    WHERE ofertaid = $22
     RETURNING ofertaid AS "ofertaId",
               titulo,
               estado
@@ -271,7 +315,7 @@ export const editarOferta = async (ofertaId, empresaId, datos) => {
 
   const values = [
     titulo,
-    ubicacion,
+    lugar.ubicacion,
     sector,
     tipoTrabajo,
     tipoContrato,
@@ -287,6 +331,10 @@ export const editarOferta = async (ofertaId, empresaId, datos) => {
     correoContacto,
     telefonoContacto || null,
     fechaCierre,
+    modalidad,
+    lugar.distritoId,
+    lugar.municipio,
+    lugar.departamento,
     ofertaId
   ];
 

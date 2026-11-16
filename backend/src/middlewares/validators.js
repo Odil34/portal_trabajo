@@ -1,4 +1,4 @@
-import { body, param, validationResult } from 'express-validator';
+import { body, param, query, validationResult } from 'express-validator';
 
 export const runValidations = (validations) => {
   return async (req, res, next) => {
@@ -182,10 +182,14 @@ export const ofertaEmpresaValidators = [
     .notEmpty()
     .withMessage('El título del puesto es obligatorio'),
 
-  body('ubicacion')
-    .trim()
-    .notEmpty()
-    .withMessage('La ubicación es obligatoria'),
+  body('modalidad')
+    .isIn(['Presencial', 'Híbrido', 'Remoto'])
+    .withMessage('La modalidad debe ser Presencial, Híbrido o Remoto'),
+
+  body('distritoId')
+    .optional({ values: 'falsy' })
+    .isInt({ min: 1 })
+    .withMessage('El distrito no es válido'),
 
   body('sector')
     .trim()
@@ -254,4 +258,26 @@ export const ofertaEmpresaValidators = [
 export const estadoOfertaEmpresaValidators = [
   idParamValidator('ofertaId'),
   estadoValidator(['activa', 'inactiva', 'cancelada'])
+];
+
+export const buscarOfertasValidators = [
+  query('modalidad')
+    .optional({ values: 'falsy' })
+    .isIn(['Presencial', 'Híbrido', 'Remoto'])
+    .withMessage('La modalidad debe ser Presencial, Híbrido o Remoto'),
+
+  query('salarioMinimo')
+    .optional({ values: 'falsy' })
+    .isInt({ min: 0 })
+    .withMessage('El salario mínimo debe ser un número positivo'),
+
+  query('orden')
+    .optional({ values: 'falsy' })
+    .isIn(['salario'])
+    .withMessage('El orden no es válido'),
+
+  query('pagina')
+    .optional({ values: 'falsy' })
+    .isInt({ min: 1 })
+    .withMessage('La página debe ser un número mayor a 0')
 ];
